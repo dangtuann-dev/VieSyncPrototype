@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  phone         String?
+  password      String?                        // null nếu dùng Google OAuth
+  image         String?
+  role          UserRole  @default(LEARNER)
+  isAdmin       Boolean   @default(false)
+  onboarded     Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  profile       UserProfile?
+  progress      CourseProgress[]
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  @@unique([identifier, token])
+}
+
+model UserProfile {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  userType        UserType                        // STUDENT | INSTRUCTOR
+  interests       String[]                        // mảng lĩnh vực quan tâm
+  painPoints      String[]                        // vấn đề người dùng gặp phải
+  currentLevel    String?                         // beginner | intermediate | advanced
+  weeklyHours     Int?                            // số giờ học mỗi tuần
+  goals           String[]                        // mục tiêu học tập
+  recommendedPath String?                         // slug lộ trình được ML gợi ý
+
+  user            User      @relation(fields: [userId], references: [id])
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Course {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  title           String
+  description     String    @db.Text
+  field           String                          // management | softskills | it | marketing
+  level           String                          // beginner | intermediate | advanced
+  tags            String[]
+  zaloLink        String?                         // link nhóm Zalo cộng đồng
+  isPublished     Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+
+  lessons         Lesson[]
+  progress        CourseProgress[]
+  liveSessions    LiveSession[]
+}
+
+model Lesson {
+  id              String    @id @default(cuid())
+  courseId        String
+  order           Int
+  title           String
+  description     String?
+  youtubeVideoId  String                          // ID video YouTube
+  duration        Int                             // phút
+  transcript      String?   @db.Text              // tóm tắt nội dung bài
+  quizJson        Json?                           // câu hỏi cuối bài dạng JSON
+
+  course          Course    @relation(fields: [courseId], references: [id])
+  createdAt       DateTime  @default(now())
+}
+
+model CourseProgress {
+  id              String    @id @default(cuid())
+  userId          String
+  courseId        String
+  completedLessons String[]                       // mảng lesson IDs đã hoàn thành
+  currentLesson   Int       @default(0)
+  percentComplete Float     @default(0)
+  startedAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user            User      @relation(fields: [userId], references: [id])
+  course          Course    @relation(fields: [courseId], references: [id])
+  @@unique([userId, courseId])
+}
+
+model LiveSession {
+  id              String    @id @default(cuid())
+  courseId        String
+  title           String
+  jitsiRoomId     String    @unique              // ID phòng Jitsi
+  scheduledAt     DateTime
+  isActive        Boolean   @default(false)
+  createdByAdmin  Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+
+  course          Course    @relation(fields: [courseId], references: [id])
+}
+
+enum UserRole {
+  LEARNER
+  INSTRUCTOR
+  ADMIN
+}
+
+enum UserType {
+  STUDENT
+  PROFESSIONAL
+  CAREER_CHANGER
+  INSTRUCTOR
+}
