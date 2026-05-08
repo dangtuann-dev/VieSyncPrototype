@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { toast } from "sonner"
 import { useLanguage } from "@/context/LanguageContext"
 import { Loader2 } from "lucide-react"
+import { reorderLessonAction } from "@/lib/actions/admin"
 
 const FIELD_COLORS: any = {
   management: "bg-blue-500",
@@ -23,6 +24,9 @@ export default function AdminCoursesPage() {
   const [expandedCourse, setExpandedCourse] = useState<string | null>(null)
   const [editingLesson, setEditingLesson] = useState<string | null>(null)
   const [lessonVideoInput, setLessonVideoInput] = useState("")
+  
+  const [editingTitle, setEditingTitle] = useState<string | null>(null)
+  const [lessonTitleInput, setLessonTitleInput] = useState("")
   
   const [editingTranscript, setEditingTranscript] = useState<string | null>(null)
   const [transcriptInput, setTranscriptInput] = useState("")
@@ -100,6 +104,31 @@ export default function AdminCoursesPage() {
     }
   }
 
+  const saveLessonTitle = async (courseId: string, lessonId: string) => {
+    if (!lessonTitleInput.trim()) return
+    
+    setIsSaving(true)
+    try {
+      const res = await fetch(`/api/admin/courses/${courseId}/lessons/${lessonId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: lessonTitleInput.trim() }),
+      })
+
+      if (res.ok) {
+        toast.success("✓ Updated!")
+        setEditingTitle(null)
+        fetchData()
+      } else {
+        toast.error("Failed")
+      }
+    } catch {
+      toast.error("Error")
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
   const saveLessonTranscript = async (courseId: string, lessonId: string) => {
     setIsSaving(true)
     try {
@@ -118,6 +147,23 @@ export default function AdminCoursesPage() {
       }
     } catch {
       toast.error("Error")
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const handleReorder = async (lessonId: string, direction: 'up' | 'down') => {
+    setIsSaving(true)
+    try {
+      const res = await reorderLessonAction(lessonId, direction)
+      if (res.success) {
+        toast.success("✓ Reordered!")
+        fetchData()
+      } else if (res.message) {
+        toast.info(res.message)
+      }
+    } catch {
+      toast.error("Error reordering")
     } finally {
       setIsSaving(false)
     }
@@ -206,14 +252,49 @@ export default function AdminCoursesPage() {
                   <div key={lesson.id} className="bg-white border border-slate-200 rounded-[1.5rem] overflow-hidden transition-all hover:border-blue-300 hover:shadow-lg shadow-sm">
                     <div className="p-5 flex flex-col md:flex-row md:items-center gap-6">
                       <div className="flex-1">
-                        <p className="text-base font-black text-slate-900 mb-2">{lesson.order}. {lesson.title}</p>
+                        {editingTitle === lesson.id ? (
+                          <div className="flex items-center gap-2 mb-2">
+                            <input
+                              type="text"
+                              value={lessonTitleInput}
+                              onChange={e => setLessonTitleInput(e.target.value)}
+                              className="flex-1 bg-white border border-blue-300 rounded-xl px-4 py-2 text-sm font-black outline-none shadow-inner"
+                              autoFocus
+                            />
+                            <button onClick={() => saveLessonTitle(course.id, lesson.id)} disabled={isSaving} className="w-10 h-10 bg-blue-600 text-white rounded-xl shadow-lg flex items-center justify-center">
+                              {isSaving ? <i className="fa-solid fa-spinner fa-spin text-xs"></i> : <i className="fa-solid fa-check text-xs"></i>}
+                            </button>
+                            <button onClick={() => setEditingTitle(null)} className="w-10 h-10 text-slate-400 hover:text-slate-600 flex items-center justify-center">
+                              <i className="fa-solid fa-xmark"></i>
+                            </button>
+                          </div>
+                        ) : (
+                          <p className="text-base font-black text-slate-900 mb-2">{lesson.order}. {lesson.title}</p>
+                        )}
                         <div className="flex items-center gap-3">
                           <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-2 py-1 rounded-lg">YouTube ID</span>
                           <code className="text-xs text-blue-700 font-mono font-bold">{lesson.youtubeVideoId}</code>
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <div className="flex flex-col gap-1 mr-2">
+                          <button 
+                            onClick={() => handleReorder(lesson.id, 'up')}
+                            disabled={isSaving}
+                            className="p-1 hover:bg-slate-100 rounded text-slate-400 hover:text-blue-600 transition-colors disabled:opacity-30"
+                          >
+                            <i className="fa-solid fa-chevron-up text-[10px]"></i>
+                          </button>
+                          <button 
+                            onClick={() => handleReorder(lesson.id, 'down')}
+                            disabled={isSaving}
+                            className="p-1 hover:bg-slate-100 rounded text-slate-400 hover:text-blue-600 transition-colors disabled:opacity-30"
+                          >
+                            <i className="fa-solid fa-chevron-down text-[10px]"></i>
+                          </button>
+                        </div>
+
                         {editingLesson === lesson.id ? (
                           <div className="flex items-center gap-2">
                             <input
@@ -239,6 +320,13 @@ export default function AdminCoursesPage() {
                             <i className="fa-solid fa-video"></i> {t('admin.courses.edit_video')}
                           </button>
                         )}
+
+                        <button 
+                          onClick={() => { setEditingTitle(lesson.id); setLessonTitleInput(lesson.title) }}
+                          className="flex items-center gap-2 text-xs font-black text-indigo-600 hover:bg-indigo-50 px-4 py-2.5 rounded-xl transition-all border border-transparent hover:border-indigo-200"
+                        >
+                          <i className="fa-solid fa-heading"></i> {t('admin.courses.edit_title')}
+                        </button>
                         
                         <button 
                           onClick={() => { 

@@ -9,7 +9,9 @@ export async function GET() {
 
     const courses = await prisma.course.findMany({
       include: {
-        lessons: true,
+        lessons: {
+          orderBy: { order: 'asc' }
+        },
         progress: true
       }
     })
