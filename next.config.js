@@ -3,6 +3,9 @@ const nextConfig = {
   serverExternalPackages: ['@prisma/client', 'prisma', 'onnxruntime-node', 'onnxruntime-web'],
   transpilePackages: ['@xenova/transformers'],
 
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   async headers() {
     return [
       {

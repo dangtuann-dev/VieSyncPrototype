@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect, use } from "react"
+import { useState, useEffect } from "react"
+import { useParams } from "next/navigation"
 import Link from "next/link"
 import { ChevronLeft, Check, Lock, MessageCircle, Info, Loader2 } from "lucide-react"
 import { SecuredVideoPlayer } from "@/components/course/VideoPlayer"
@@ -9,8 +10,9 @@ import { completeLessonAction } from "@/lib/actions/course"
 import { useLanguage } from "@/context/LanguageContext"
 import { toast } from "sonner"
 
-export default function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params)
+export default function CoursePage() {
+  const params = useParams()
+  const slug = params?.slug as string
   const { t } = useLanguage()
   
   const [course, setCourse] = useState<any>(null)
@@ -19,6 +21,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
   const [isCompleting, setIsCompleting] = useState(false)
 
   const fetchData = async () => {
+    if (!slug) return
     try {
       const res = await fetch(`/api/course/${slug}`)
       if (res.ok) {
