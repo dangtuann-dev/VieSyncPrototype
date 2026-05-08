@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { toast } from "sonner"
 import { useLanguage } from "@/context/LanguageContext"
+import { Download as DownloadIcon, Search as SearchIcon, MoreHorizontal as MoreIcon, Loader2 as LoaderIcon } from "lucide-react"
 
 export default function AdminUsersPage() {
   const { t, language } = useLanguage()
