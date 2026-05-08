@@ -54,9 +54,11 @@ export default function CoursePage() {
       if (res.success) {
         toast.success(t('course.completed'))
         await fetchData()
+      } else {
+        toast.error(res.error || "Failed to update progress")
       }
     } catch {
-      toast.error("Error")
+      toast.error("An unexpected error occurred")
     } finally {
       setIsCompleting(false)
     }

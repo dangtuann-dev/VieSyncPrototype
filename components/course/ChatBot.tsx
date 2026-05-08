@@ -12,19 +12,29 @@ interface Message {
 }
 
 const COURSE_FAQ: any = {
-  "Professional Communication & Presentation Skills": [
-    { q_vi: "Làm sao để vượt qua nỗi sợ thuyết trình?", a_vi: "Hãy chuẩn bị kỹ nội dung, luyện tập trước gương hoặc quay video lại, và quan trọng nhất là tập trung vào giá trị bạn mang lại cho khán giả thay vì tập trung vào nỗi sợ của bản thân.", q_en: "How to overcome public speaking fear?", a_en: "Prepare thoroughly, practice in front of a mirror, and focus on the value you provide to the audience rather than your fear." },
-    { q_vi: "Làm thế nào để lắng nghe chủ động hơn?", a_vi: "Duy trì giao tiếp bằng mắt, gật đầu nhẹ để thể hiện sự đồng tình, không ngắt lời và thỉnh thoảng tóm tắt lại ý của người nói để xác nhận sự thấu hiểu.", q_en: "How to listen more actively?", a_en: "Maintain eye contact, nod to show agreement, avoid interruptions, and occasionally summarize the speaker's points to confirm understanding." },
-    { q_vi: "Cách xử lý khi bị hỏi những câu hóc búa?", a_vi: "Hãy bình tĩnh, dành vài giây suy nghĩ, nếu chưa có câu trả lời ngay hãy xin phép ghi lại và phản hồi sau, hoặc khéo léo chuyển hướng sang khía cạnh bạn am hiểu nhất.", q_en: "Handling tough questions?", a_en: "Stay calm, take a few seconds to think, and if you don't have an immediate answer, offer to follow up later or steer towards your area of expertise." }
+  "Kỹ Năng Giao Tiếp & Thuyết Trình Chuyên Nghiệp": [
+    { q_vi: "Làm sao để vượt qua nỗi sợ thuyết trình?", a_vi: "Hãy chuẩn bị kỹ nội dung, luyện tập trước gương hoặc quay video lại, và tập trung vào giá trị bạn mang lại cho khán giả.", q_en: "How to overcome public speaking fear?", a_en: "Prepare thoroughly, practice in front of a mirror, and focus on the value you provide to the audience." },
+    { q_vi: "Làm thế nào để lắng nghe chủ động hơn?", a_vi: "Duy trì giao tiếp bằng mắt, gật đầu nhẹ để thể hiện sự đồng tình, không ngắt lời và thỉnh thoảng tóm tắt lại ý người nói.", q_en: "How to listen more actively?", a_en: "Maintain eye contact, nod to show agreement, avoid interruptions, and summarize the speaker's points." }
   ],
-  // Fallback for other courses
+  "Quản Trị Doanh Nghiệp Hiện Đại": [
+    { q_vi: "KPI và OKR khác nhau như thế nào?", a_vi: "KPI tập trung vào đo lường hiệu suất công việc hiện tại, trong khi OKR tập trung vào các mục tiêu tham vọng và kết quả then chốt mang tính định hướng.", q_en: "Difference between KPI and OKR?", a_en: "KPI focuses on measuring current performance, while OKR focuses on ambitious goals and key results." },
+    { q_vi: "Làm sao để quản lý đội nhóm hiệu quả?", a_vi: "Hãy xây dựng sự tin tưởng, giao tiếp minh bạch, phân công công việc dựa trên thế mạnh của từng thành viên và luôn đưa ra phản hồi kịp thời.", q_en: "How to manage teams effectively?", a_en: "Build trust, communicate transparently, delegate based on strengths, and provide timely feedback." }
+  ],
+  "Phát Triển Tư Duy Phản Biện": [
+    { q_vi: "Làm sao để nhận diện các lỗi ngụy biện?", a_vi: "Hãy luôn đặt câu hỏi về tính logic của lập luận, kiểm tra nguồn gốc bằng chứng và tránh bị chi phối bởi cảm xúc nhất thời.", q_en: "How to identify fallacies?", a_en: "Always question the logic of arguments, check the source of evidence, and avoid being swayed by temporary emotions." },
+    { q_vi: "Quy trình suy luận logic cơ bản là gì?", a_vi: "Bắt đầu từ việc thu thập dữ liệu khách quan, phân tích các góc nhìn khác nhau, và đưa ra kết luận dựa trên bằng chứng xác thực.", q_en: "Basic logical reasoning process?", a_en: "Start by gathering objective data, analyzing different perspectives, and drawing conclusions based on verified evidence." }
+  ],
+  "Python Cho Người Mới Bắt Đầu": [
+    { q_vi: "Tại sao nên học Python thay vì ngôn ngữ khác?", a_vi: "Python có cú pháp đơn giản, gần gũi với tiếng Anh, thư viện hỗ trợ cực kỳ phong phú và ứng dụng rộng rãi từ Web đến AI.", q_en: "Why learn Python first?", a_en: "Python has simple syntax, is very readable, has vast library support, and applies to everything from Web to AI." },
+    { q_vi: "Biến và Kiểu dữ liệu trong Python là gì?", a_vi: "Biến là nơi lưu trữ giá trị, còn kiểu dữ liệu định nghĩa loại giá trị đó (như số nguyên int, số thực float, chuỗi string hay danh sách list).", q_en: "What are variables and data types?", a_en: "Variables store values, and data types define the nature of those values (like int, float, string, or list)." }
+  ],
   "DEFAULT": [
     { q_vi: "Làm sao để học hiệu quả hơn?", a_vi: "Hãy đặt mục tiêu rõ ràng, chia nhỏ bài học và thực hành ngay sau khi xem video.", q_en: "How to learn more effectively?", a_en: "Set clear goals, break lessons into small parts, and practice immediately after watching the videos." }
   ]
 }
 
 export function ChatBot({ 
-  lessonTopic = "Professional Communication & Presentation Skills",
+  lessonTopic = "Kỹ Năng Giao Tiếp & Thuyết Trình Chuyên Nghiệp",
   zaloLink = "#" 
 }: { 
   lessonTopic?: string,
@@ -134,7 +144,7 @@ export function ChatBot({
                   className="mt-4 flex items-center justify-center gap-2.5 w-full py-3 bg-[#0068FF] hover:bg-[#0055D4] text-white rounded-xl font-black text-xs transition-all shadow-xl shadow-blue-200"
                 >
                   <i className="fa-brands fa-whatsapp text-lg"></i>
-                  {language === 'vi' ? 'Tham gia Nhóm Zalo ngay' : 'Join Zalo Group Now'}
+                  {t('course.zalo_group')}
                 </a>
               )}
             </div>
@@ -145,7 +155,7 @@ export function ChatBot({
         {!isTyping && messages[messages.length - 1]?.role === 'bot' && (
            <div className="space-y-2.5 pl-12 animate-fade-up pb-6">
              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
-                {language === 'vi' ? 'CHỦ ĐỀ GỢI Ý:' : 'SUGGESTED TOPICS:'}
+                {t('ai.suggest_title')}
              </p>
              {faqs.map((faq: any, idx: number) => (
                <button
