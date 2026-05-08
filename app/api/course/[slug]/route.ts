@@ -15,7 +15,7 @@ export async function GET(
       where: { slug },
       include: {
         lessons: { orderBy: { order: 'asc' } },
-        liveSessions: { where: { isActive: true } }
+        liveSessions: { orderBy: { startTime: 'desc' } }
       }
     })
 
