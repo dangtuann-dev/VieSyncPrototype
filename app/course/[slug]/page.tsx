@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
-import { ChevronLeft, Check, Lock, MessageCircle, Info, Loader2 } from "lucide-react"
+import { ChevronLeft, Check, Lock, Info, Loader2 } from "lucide-react"
 import { SecuredVideoPlayer } from "@/components/course/VideoPlayer"
 import { ChatBot } from "@/components/course/ChatBot"
 import { completeLessonAction } from "@/lib/actions/course"
@@ -13,12 +13,13 @@ import { toast } from "sonner"
 export default function CoursePage() {
   const params = useParams()
   const slug = params?.slug as string
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   
   const [course, setCourse] = useState<any>(null)
   const [user, setUser] = useState<{ email: string; name: string } | null>(null)
   const [progress, setProgress] = useState({ completedLessons: [] as string[], percentComplete: 0 })
   const [activeTab, setActiveTab] = useState<'lessons' | 'live'>('lessons')
+  const [selectedLesson, setSelectedLesson] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isCompleting, setIsCompleting] = useState(false)
 
@@ -31,6 +32,12 @@ export default function CoursePage() {
         setCourse(data.course)
         setUser(data.user)
         setProgress(data.progress || { completedLessons: [], percentComplete: 0 })
+        
+        // Auto select first uncompleted lesson if none selected
+        if (!selectedLesson) {
+          const uncompleted = data.course.lessons.filter((l: any) => !(data.progress?.completedLessons || []).includes(l.id))
+          setSelectedLesson(uncompleted[0] || data.course.lessons[0])
+        }
       }
     } catch (e) {
       console.error(e)
@@ -68,6 +75,7 @@ export default function CoursePage() {
   }
 
   const getTranslatedTitle = (title: string, prefix = 'course') => {
+    if (!title) return ""
     const key = `${prefix}.${title}_title`
     const translated = t(key)
     return translated === key ? title : translated
@@ -82,8 +90,7 @@ export default function CoursePage() {
   if (isLoading) return <div className="flex h-screen items-center justify-center bg-white"><Loader2 className="animate-spin text-blue-600" /></div>
   if (!course) return <div className="p-20 text-center">Course not found</div>
 
-  const uncompleted = course.lessons.filter((l: any) => !isCompleted(l.id))
-  const activeLesson = uncompleted[0] || course.lessons[course.lessons.length - 1]
+  const activeLesson = selectedLesson || course.lessons[0]
   const activeIndex = course.lessons.findIndex((l: any) => l.id === activeLesson?.id)
 
   return (
@@ -99,23 +106,8 @@ export default function CoursePage() {
         </div>
       </div>
 
-      {/* Lesson list sidebar */}
+      {/* Sidebar */}
       <aside className="w-full lg:w-[320px] border-r border-[#E2EAF4] bg-white flex flex-col shrink-0 h-[40vh] lg:h-full">
-        {course.liveSessions?.[0]?.isActive && (
-          <a
-            href={`https://meet.jit.si/${course.liveSessions[0].jitsiRoomId}`}
-            target="_blank"
-            rel="noopener noreferrer" 
-            className="m-3 p-4 bg-gradient-to-br from-red-600 to-orange-500 text-white rounded-2xl shadow-lg hover:scale-[1.02] transition-transform"
-          >
-            <div className="flex items-center gap-2 mb-1">
-              <div className="w-2 h-2 bg-white rounded-full" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">{t('course.live_now')}</span>
-            </div>
-            <p className="text-xs font-bold leading-tight">{t('course.live_msg')}</p>
-          </a>
-        )}
-        
         <div className="p-6 border-b border-[#E2EAF4]">
           <Link href="/dashboard" className="inline-flex items-center gap-1.5 text-xs font-black text-slate-400 hover:text-blue-600 mb-4 transition-colors uppercase tracking-widest">
             <ChevronLeft size={14} /> {t('course.back')}
@@ -130,11 +122,12 @@ export default function CoursePage() {
             </div>
             <div className="h-1.5 bg-[#E2EAF4] rounded-full overflow-hidden">
               <div className="h-full bg-blue-600 rounded-full transition-all duration-700" style={{ width: `${progress.percentComplete}%` }} />
-            </div>
+          </div>
         </div>
-        
-        <div className="flex-1 flex flex-col min-h-0 bg-white">
-          <div className="flex border-b border-[#E2EAF4]">
+      </div>
+
+      <div className="flex-1 flex flex-col min-h-0 bg-white">
+          <div className="flex border-b border-[#E2EAF4] shrink-0 bg-white">
             <button 
               onClick={() => setActiveTab('lessons')}
               className={`flex-1 py-4 text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'lessons' ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/30' : 'text-slate-400 hover:text-slate-600'}`}
@@ -146,7 +139,7 @@ export default function CoursePage() {
               className={`flex-1 py-4 text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${activeTab === 'live' ? 'text-rose-600 border-b-2 border-rose-600 bg-rose-50/30' : 'text-slate-400 hover:text-slate-600'}`}
             >
               LIVE
-              {course.liveSessions?.filter((s: any) => new Date(s.startTime) > new Date() || s.isActive).length > 0 && (
+              {course.liveSessions?.filter((s: any) => new Date(s.scheduledAt) > new Date() || s.isActive).length > 0 && (
                 <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
               )}
             </button>
@@ -161,9 +154,10 @@ export default function CoursePage() {
                   const active = lesson.id === activeLesson?.id
 
                   return (
-                    <div
+                    <button
                       key={lesson.id}
-                      onClick={() => !locked && setActiveLesson(lesson)}
+                      disabled={locked}
+                      onClick={() => setSelectedLesson(lesson)}
                       className={`
                         w-full flex items-start gap-3.5 p-4 rounded-2xl text-left transition-all duration-300
                         ${active ? 'bg-blue-50 border border-blue-100 shadow-sm' : 'border border-transparent hover:bg-slate-50'}
@@ -185,7 +179,7 @@ export default function CoursePage() {
                         </p>
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{lesson.duration} mins</p>
                       </div>
-                    </div>
+                    </button>
                   )
                 })}
               </div>
@@ -193,7 +187,7 @@ export default function CoursePage() {
               <div className="space-y-4">
                 {course.liveSessions?.length > 0 ? (
                   course.liveSessions.map((session: any) => {
-                    const isUpcoming = new Date(session.startTime) > new Date()
+                    const isUpcoming = new Date(session.scheduledAt) > new Date()
                     const isPast = !session.isActive && !isUpcoming
                     return (
                       <div key={session.id} className={`p-4 rounded-2xl border transition-all ${session.isActive ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 border-slate-100'}`}>
@@ -205,7 +199,7 @@ export default function CoursePage() {
                              {session.isActive ? 'LIVE NOW' : isUpcoming ? 'Sắp diễn ra' : 'Đã kết thúc'}
                            </span>
                            <span className="text-[10px] font-bold text-slate-400">
-                             {new Date(session.startTime).toLocaleDateString(language === 'vi' ? 'vi-VN' : 'en-US')}
+                             {new Date(session.scheduledAt).toLocaleDateString(language === 'vi' ? 'vi-VN' : 'en-US')}
                            </span>
                         </div>
                         <h4 className={`text-xs font-black mb-3 ${session.isActive ? 'text-rose-900' : 'text-slate-800'}`}>{session.title}</h4>
@@ -221,7 +215,7 @@ export default function CoursePage() {
                         ) : isUpcoming ? (
                           <div className="flex items-center gap-2 text-[10px] font-bold text-blue-600 bg-blue-50 p-2 rounded-xl border border-blue-100">
                             <i className="fa-regular fa-clock"></i>
-                            {new Date(session.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            {new Date(session.scheduledAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </div>
                         ) : (
                           <div className="text-[10px] font-bold text-slate-400 italic">
@@ -266,17 +260,15 @@ export default function CoursePage() {
           />
         </div>
         <div className="flex-1 overflow-y-auto bg-white p-8 lg:p-12 border-t border-[#E2EAF4]">
-
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-4">
-              {t('course.lesson')} {activeIndex + 1} · {activeLesson.duration} mins
+              {t('course.lesson')} {activeIndex + 1} · {activeLesson?.duration || 0} mins
             </div>
             <h1 className="text-3xl font-display font-black text-slate-900 mb-4 tracking-tight">
               {getTranslatedTitle(activeLesson?.title, 'lesson')}
             </h1>
             
-            {/* Transcript / Summary section */}
-            {activeLesson.transcript && (
+            {activeLesson?.transcript && (
               <div className="mb-10 p-8 bg-slate-50 rounded-[2rem] border border-slate-100 shadow-inner">
                 <h4 className="text-xs font-black text-slate-400 mb-6 flex items-center gap-2 uppercase tracking-widest">
                   <Info size={16} className="text-blue-500" /> {t('course.summary')}
@@ -310,7 +302,7 @@ export default function CoursePage() {
         </div>
       </main>
 
-      {/* Chatbot */}
+      {/* Chatbot sidebar */}
       <aside className="w-full lg:w-[360px] border-l border-[#E2EAF4] bg-white shrink-0 h-[50vh] lg:h-full">
         <ChatBot lessonTopic={getTranslatedTitle(course.title)} zaloLink={course.zaloLink} />
       </aside>

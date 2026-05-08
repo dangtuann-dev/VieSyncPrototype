@@ -1,28 +1,28 @@
 import { NextResponse } from "next/server"
-import { verifySession } from "@/lib/session"
+import { getSession } from "@/lib/session"
 import { prisma } from "@/lib/db"
 
 export async function GET(
   req: Request,
-  { params }: { params: Promise<{ slug: string }> }
+  context: any
 ) {
   try {
-    const { slug } = await params
-    const session = await verifySession()
+    const { slug } = await context.params
+    const session = await getSession()
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
     const course = await prisma.course.findUnique({
       where: { slug },
       include: {
         lessons: { orderBy: { order: 'asc' } },
-        liveSessions: { orderBy: { startTime: 'desc' } }
+        liveSessions: { orderBy: { scheduledAt: 'desc' } }
       }
     })
 
     if (!course) return NextResponse.json({ error: "Course not found" }, { status: 404 })
 
-    const progress = await prisma.courseProgress.findUnique({
-      where: { userId_courseId: { userId: session.userId, courseId: course.id } }
+    const progress = await prisma.courseProgress.findFirst({
+      where: { userId: session.userId, courseId: course.id }
     })
 
     const user = await prisma.user.findUnique({
