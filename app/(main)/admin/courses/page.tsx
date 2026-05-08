@@ -196,7 +196,7 @@ export default function AdminCoursesPage() {
               </div>
               <div className="flex items-center gap-6 text-xs text-slate-500 font-bold opacity-70">
                 <span className="flex items-center gap-2"><i className="fa-solid fa-play-circle text-blue-500"></i> {course.lessons?.length || 0} {t('common.lessons')}</span>
-                <span className="flex items-center gap-2"><i className="fa-solid fa-user-graduate text-indigo-500"></i> {course.progress?.length || 0} Students</span>
+                <span className="flex items-center gap-2"><i className="fa-solid fa-user-graduate text-indigo-500"></i> {course.progress?.length || 0} {t('admin.courses.students_count')}</span>
               </div>
 
               <div className="flex items-center gap-2.5 mt-4">

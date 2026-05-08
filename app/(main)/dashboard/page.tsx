@@ -85,7 +85,7 @@ export default function DashboardPage() {
                   </h3>
                   <div className="flex items-center gap-4 text-[11px] font-bold text-slate-400 mb-3">
                     <span className="flex items-center gap-1.5"><i className="fa-solid fa-play-circle text-blue-500"></i> {p.course.lessons?.length || 0} {t('common.lessons')}</span>
-                    <span className="flex items-center gap-1.5"><i className="fa-solid fa-check-circle text-emerald-500"></i> {p.completedLessons?.length || 0} completed</span>
+                    <span className="flex items-center gap-1.5"><i className="fa-solid fa-check-circle text-emerald-500"></i> {p.completedLessons?.length || 0} {t('common.completed_count')}</span>
                   </div>
                   <div className="relative w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
                     <div className="absolute top-0 left-0 h-full bg-blue-600 rounded-full transition-all duration-1000" style={{ width: `${p.percentComplete}%` }} />

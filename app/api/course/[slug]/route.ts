@@ -25,9 +25,18 @@ export async function GET(
       where: { userId_courseId: { userId: session.userId, courseId: course.id } }
     })
 
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: { name: true, email: true }
+    })
+
     return NextResponse.json({
       course,
-      progress
+      progress,
+      user: {
+        email: user?.email || session.email,
+        name: user?.name || "Student"
+      }
     })
   } catch (error) {
     console.error("Course API Error:", error)

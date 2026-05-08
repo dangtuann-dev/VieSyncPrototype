@@ -37,10 +37,11 @@ export default function AdminUsersPage() {
     const headers = ["ID,Name,Email,Phone,Type,Field,Pain Points,Course,Progress,Joined"]
     const rows = filteredUsers.map(u => {
       const type = t(`usertype.${u.profile?.userType || 'UNKNOWN'}`)
-      const interests = u.profile?.interests?.map((i: string) => t(`field.${i}`)).join(";") || ""
+      const interests = (u.profile?.interests || []).map((i: string) => t(`field.${i}`)).join(";")
+      const pains = (u.profile?.painPoints || []).map((p: string) => t(`painpoint.${p}`)).join(";")
       const course = u.progress?.[0]?.course?.title || t('admin.users.not_started')
       const progress = u.progress?.[0]?.percentComplete || 0
-      return `${u.id},${u.name},${u.email},${u.phone || ""},${type},${interests},${course},${progress}%,${new Date(u.createdAt).toLocaleDateString(language === 'vi' ? 'vi-VN' : 'en-US')}`
+      return `"${u.id}","${u.name}","${u.email}","${u.phone || ""}","${type}","${interests}","${pains}","${course}","${progress}%","${new Date(u.createdAt).toLocaleDateString(language === 'vi' ? 'vi-VN' : 'en-US')}"`
     })
     
     const csvContent = "\uFEFF" + headers.concat(rows).join("\n")
@@ -67,7 +68,7 @@ export default function AdminUsersPage() {
       {/* Header & Search */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="relative flex-1 max-w-lg">
-          <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18}></i>
+          <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
           <input
             type="text"
             placeholder={t('admin.users.search_placeholder')}

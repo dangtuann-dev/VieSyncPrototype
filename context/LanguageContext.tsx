@@ -12,6 +12,7 @@ interface LanguageContextType {
 
 const translations: Record<Language, Record<string, string>> = {
   vi: {
+    // Navigation
     "nav.home": "Trang chủ",
     "nav.my_courses": "Khóa học của tôi",
     "nav.live": "Lịch học Live",
@@ -19,6 +20,8 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.settings": "Cài đặt",
     "nav.admin": "Quản lý hệ thống",
     "nav.logout": "Đăng xuất",
+
+    // Auth
     "auth.title": "Xóa bỏ khoảng cách, Đột phá kỹ năng",
     "auth.check1": "Lộ trình học cá nhân hóa bằng AI",
     "auth.check2": "Video bảo mật — không lo mất chất xám",
@@ -35,10 +38,14 @@ const translations: Record<Language, Record<string, string>> = {
     "auth.no_account": "Chưa có tài khoản?",
     "auth.have_account": "Đã có tài khoản?",
     "auth.google_login": "Tiếp tục với Google",
+
+    // Dashboard
     "dashboard.welcome": "Chào buổi sáng",
     "dashboard.stats_users": "Tổng người dùng",
     "dashboard.stats_courses": "Khóa học hoạt động",
     "dashboard.stats_lessons": "Bài học đã xem",
+    "dashboard.stats_minutes": "Phút học tập",
+    "dashboard.stats_streak": "Ngày liên tiếp",
     "dashboard.recommended": "Được AI gợi ý cho bạn",
     "dashboard.continue": "Tiếp tục học",
     "dashboard.start": "Bắt đầu ngay",
@@ -47,42 +54,28 @@ const translations: Record<Language, Record<string, string>> = {
     "dashboard.no_courses": "Bạn chưa tham gia khóa học nào",
     "dashboard.view_all": "Xem tất cả",
     "dashboard.lessons_remaining": "bài học còn lại",
-    "dashboard.stats_minutes": "Phút học tập",
-    "dashboard.stats_streak": "Ngày liên tiếp",
+
+    // Fields
     "field.management": "Quản trị",
     "field.softskills": "Kỹ năng mềm",
     "field.it": "Lập trình",
     "field.marketing": "Marketing",
+
+    // Common
     "common.minutes": "phút",
     "common.lessons": "bài",
-    "course.management_title": "Nhập Môn Quản Trị Doanh Nghiệp Hiện Đại",
-    "course.management_desc": "Khóa học dành cho người mới bắt đầu tìm hiểu về quản trị doanh nghiệp, kỹ năng ra quyết định và quản lý đội nhóm.",
-    "course.softskills_title": "Kỹ Năng Giao Tiếp & Thuyết Trình Chuyên Nghiệp",
-    "course.softskills_desc": "Cải thiện khả năng giao tiếp, lắng nghe chủ động và xây dựng bài thuyết trình thuyết phục.",
-    "course.it_title": "Python Cơ Bản — Từ Số Không Đến Có Thể Code",
-    "course.it_desc": "Làm quen với tư duy lập trình và ngôn ngữ Python thông qua các ví dụ thực tế.",
-    "course.marketing_title": "Digital Marketing Từ A-Z Cho Người Mới",
+    "common.completed_count": "đã xong",
+    "common.home": "Trang chủ",
+    "common.system_management": "Quản lý hệ thống",
+    "common.loading": "Đang tải...",
+
+    // Courses & Admin
     "admin.management": "Quản trị hệ thống",
     "admin.description": "Theo dõi và quản lý toàn bộ hoạt động của nền tảng",
     "admin.overview": "Tổng quan",
     "admin.users": "Người dùng",
     "admin.courses": "Khóa học",
     "admin.live_sessions_tab": "Live Session",
-    "explore.title": "Khám phá khóa học",
-    "explore.desc": "Tìm kiếm khóa học phù hợp với mục tiêu của bạn",
-    "explore.all": "Tất cả",
-    "mycourses.title": "Khóa học của tôi",
-    "mycourses.desc": "Theo dõi tiến độ học tập của bạn",
-    "mycourses.learning": "Đang học",
-    "mycourses.completed": "Đã hoàn thành",
-    "mycourses.empty": "Bạn chưa bắt đầu khóa học nào",
-    "mycourses.empty_desc": "Hãy khám phá các khóa học thú vị và bắt đầu hành trình nâng cao kỹ năng của bạn nhé.",
-    "live.title": "Lịch học Live Session",
-    "live.desc": "Tham gia các buổi học trực tuyến cùng giảng viên để giải đáp thắc mắc và đào sâu kiến thức.",
-    "live.not_started": "Chưa bắt đầu",
-    "live.room": "Phòng học trực tuyến",
-    "common.home": "Trang chủ",
-    "common.system_management": "Quản lý hệ thống",
     "admin.active_courses": "Khóa học đang mở",
     "admin.active_today": "Đang học hôm nay",
     "admin.live_sessions": "Live đang diễn ra",
@@ -95,27 +88,8 @@ const translations: Record<Language, Record<string, string>> = {
     "admin.loading_error": "Lỗi tải thống kê",
     "admin.upcoming": "Sắp tới",
     "admin.today": "hôm nay",
-    "course.back": "Quay lại",
-    "course.progress": "TIẾN ĐỘ HỌC TẬP",
-    "course.learning_status": "Đang học",
-    "course.live_now": "TRỰC TIẾP",
-    "course.live_msg": "Tham gia buổi học trực tuyến cùng giảng viên ngay!",
-    "course.progress_label": "Tiến độ",
-    "course.lock_msg": "Hoàn thành bài học trước để mở khóa",
-    "course.zalo_group": "Nhóm Zalo hỗ trợ",
-    "course.lesson": "Bài học",
-    "course.summary": "TÓM TẮT NỘI DUNG",
-    "course.mark_complete": "Hoàn thành bài học",
-    "course.completed": "Đã hoàn thành",
-    "ai.title": "Trợ lý học tập AI",
-    "ai.status": "Trực tuyến",
-    "ai.welcome": "Chào bạn! Tôi có thể giúp gì cho bài học hôm nay?",
-    "ai.suggest_title": "CHỦ ĐỀ GỢI Ý:",
-    "ai.suggest_1": "Làm sao để học hiệu quả hơn?",
-    "ai.suggest_2": "Giải thích thêm về bài học này",
-    "ai.suggest_3": "Tóm tắt các ý chính",
-    "ai.suggest_4": "Đặt câu hỏi trắc nghiệm ôn tập",
-    "ai.input_placeholder": "Nhập tin nhắn của bạn...",
+
+    // Admin Course Management
     "admin.courses.status_published": "Đang mở",
     "admin.courses.status_hidden": "Ẩn",
     "admin.courses.manage_lessons": "Quản lý bài học",
@@ -134,6 +108,34 @@ const translations: Record<Language, Record<string, string>> = {
     "admin.courses.save_link": "Lưu link",
     "admin.courses.summary_label": "Tóm tắt / Nội dung chính",
     "admin.courses.tip": "Mẹo: Sử dụng xuống dòng để ngăn cách các ý chính.",
+    "admin.courses.students_count": "Học viên",
+
+    // Course Page
+    "course.back": "Quay lại",
+    "course.progress": "TIẾN ĐỘ HỌC TẬP",
+    "course.learning_status": "Đang học",
+    "course.live_now": "TRỰC TIẾP",
+    "course.live_msg": "Tham gia buổi học trực tuyến cùng giảng viên ngay!",
+    "course.progress_label": "Tiến độ",
+    "course.lock_msg": "Hoàn thành bài học trước để mở khóa",
+    "course.zalo_group": "Nhóm Zalo hỗ trợ",
+    "course.lesson": "Bài học",
+    "course.summary": "TÓM TẮT NỘI DUNG",
+    "course.mark_complete": "Hoàn thành bài học",
+    "course.completed": "Đã hoàn thành",
+
+    // AI Chatbot
+    "ai.title": "Trợ lý học tập AI",
+    "ai.status": "Trực tuyến",
+    "ai.welcome": "Chào bạn! Tôi có thể giúp gì cho bài học hôm nay?",
+    "ai.suggest_title": "CHỦ ĐỀ GỢI Ý:",
+    "ai.suggest_1": "Làm sao để học hiệu quả hơn?",
+    "ai.suggest_2": "Giải thích thêm về bài học này",
+    "ai.suggest_3": "Tóm tắt các ý chính",
+    "ai.suggest_4": "Đặt câu hỏi trắc nghiệm ôn tập",
+    "ai.input_placeholder": "Nhập tin nhắn của bạn...",
+
+    // User Types & Pain Points
     "usertype.STUDENT": "Sinh viên",
     "usertype.PROFESSIONAL": "Người đi làm",
     "usertype.CAREER_CHANGER": "Chuyển ngành",
@@ -144,6 +146,13 @@ const translations: Record<Language, Record<string, string>> = {
     "painpoint.COST": "Chi phí cao",
     "painpoint.INTERACTION": "Thiếu tương tác",
     "painpoint.PRACTICE": "Ít thực hành",
+    "painpoint.Thiếu kỹ năng thực tế để xin việc": "Thiếu kỹ năng thực tế để xin việc",
+    "painpoint.Không biết bắt đầu từ đâu": "Không biết bắt đầu từ đâu",
+    "painpoint.Chi phí các khóa học quá cao": "Chi phí các khóa học quá cao",
+    "painpoint.Thiếu sự tương tác với giảng viên": "Thiếu sự tương tác với giảng viên",
+    "painpoint.Khó khăn trong việc sắp xếp thời gian": "Khó khăn trong việc sắp xếp thời gian",
+
+    // Days & Calendar
     "day.Mon": "T2",
     "day.Tue": "T3",
     "day.Wed": "T4",
@@ -151,8 +160,8 @@ const translations: Record<Language, Record<string, string>> = {
     "day.Fri": "T6",
     "day.Sat": "T7",
     "day.Sun": "CN",
-    "dashboard.recommended": "Được AI gợi ý cho bạn",
-    "dashboard.continue": "Tiếp tục học",
+
+    // Admin Users
     "admin.users.search_placeholder": "Tìm theo tên hoặc email...",
     "admin.users.export": "Xuất CSV",
     "admin.users.header_user": "NGƯỜI DÙNG",
@@ -163,18 +172,34 @@ const translations: Record<Language, Record<string, string>> = {
     "admin.users.header_progress": "TIẾN ĐỘ",
     "admin.users.header_joined": "THAM GIA",
     "admin.users.not_started": "Chưa bắt đầu",
-    "painpoint.Thiếu kỹ năng thực tế để xin việc": "Thiếu kỹ năng thực tế để xin việc",
-    "painpoint.Không biết bắt đầu từ đâu": "Không biết bắt đầu từ đâu",
-    "painpoint.Chi phí các khóa học quá cao": "Chi phí các khóa học quá cao",
-    "painpoint.Thiếu sự tương tác với giảng viên": "Thiếu sự tương tác với giảng viên",
-    "painpoint.Khó khăn trong việc sắp xếp thời gian": "Khó khăn trong việc sắp xếp thời gian",
+
+    // Settings
     "settings.title": "Cài đặt hệ thống",
     "settings.language": "Ngôn ngữ hiển thị",
     "settings.profile": "Thông tin cá nhân",
     "settings.save": "Lưu thay đổi",
-    "common.loading": "Đang tải...",
+
+    // Explore
+    "explore.title": "Khám phá khóa học",
+    "explore.desc": "Tìm kiếm khóa học phù hợp với mục tiêu của bạn",
+    "explore.all": "Tất cả",
+
+    // My Courses
+    "mycourses.title": "Khóa học của tôi",
+    "mycourses.desc": "Theo dõi tiến độ học tập của bạn",
+    "mycourses.learning": "Đang học",
+    "mycourses.completed": "Đã hoàn thành",
+    "mycourses.empty": "Bạn chưa bắt đầu khóa học nào",
+    "mycourses.empty_desc": "Hãy khám phá các khóa học thú vị và bắt đầu hành trình nâng cao kỹ năng của bạn nhé.",
+
+    // Live Session
+    "live.title": "Lịch học Live Session",
+    "live.desc": "Tham gia các buổi học trực tuyến cùng giảng viên để giải đáp thắc mắc và đào sâu kiến thức.",
+    "live.not_started": "Chưa bắt đầu",
+    "live.room": "Phòng học trực tuyến",
   },
   en: {
+    // Navigation
     "nav.home": "Home",
     "nav.my_courses": "My Courses",
     "nav.live": "Live Sessions",
@@ -182,6 +207,8 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.settings": "Settings",
     "nav.admin": "Admin Dashboard",
     "nav.logout": "Logout",
+
+    // Auth
     "auth.title": "Closing the Gap, Breaking Skill Barriers",
     "auth.check1": "AI-Personalized Learning Paths",
     "auth.check2": "Secure Videos — Protect Your Knowledge",
@@ -198,10 +225,14 @@ const translations: Record<Language, Record<string, string>> = {
     "auth.no_account": "Don't have an account?",
     "auth.have_account": "Already have an account?",
     "auth.google_login": "Continue with Google",
+
+    // Dashboard
     "dashboard.welcome": "Good morning",
     "dashboard.stats_users": "Total Users",
     "dashboard.stats_courses": "Active Courses",
     "dashboard.stats_lessons": "Lessons Viewed",
+    "dashboard.stats_minutes": "Learning Minutes",
+    "dashboard.stats_streak": "Day Streak",
     "dashboard.recommended": "AI Recommended for you",
     "dashboard.continue": "Continue Learning",
     "dashboard.start": "Start Now",
@@ -210,43 +241,28 @@ const translations: Record<Language, Record<string, string>> = {
     "dashboard.no_courses": "You haven't joined any courses yet",
     "dashboard.view_all": "View All",
     "dashboard.lessons_remaining": "lessons remaining",
-    "dashboard.stats_minutes": "Learning Minutes",
-    "dashboard.stats_streak": "Day Streak",
+
+    // Fields
     "field.management": "Management",
     "field.softskills": "Soft Skills",
     "field.it": "Programming",
     "field.marketing": "Marketing",
+
+    // Common
     "common.minutes": "mins",
     "common.lessons": "lessons",
-    "course.management_title": "Introduction to Modern Enterprise Management",
-    "course.management_desc": "A course for beginners to learn about business management, decision-making skills, and team management.",
-    "course.softskills_title": "Professional Communication & Presentation Skills",
-    "course.softskills_desc": "Improve communication, active listening, and building persuasive presentations.",
-    "course.it_title": "Basic Python — From Zero to Code",
-    "course.it_desc": "Get familiar with programming logic and Python language through practical examples.",
-    "course.marketing_title": "Digital Marketing A-Z for Beginners",
-    "course.marketing_desc": "Grasp basic concepts of digital marketing, content marketing, and performance measurement.",
+    "common.completed_count": "completed",
+    "common.home": "Home",
+    "common.system_management": "System Management",
+    "common.loading": "Loading...",
+
+    // Courses & Admin
     "admin.management": "System Management",
     "admin.description": "Monitor and manage all platform activities",
     "admin.overview": "Overview",
     "admin.users": "Users",
     "admin.courses": "Courses",
     "admin.live_sessions_tab": "Live Session",
-    "explore.title": "Explore Courses",
-    "explore.desc": "Find the course that fits your goals",
-    "explore.all": "All",
-    "mycourses.title": "My Courses",
-    "mycourses.desc": "Track your learning progress",
-    "mycourses.learning": "Learning",
-    "mycourses.completed": "Completed",
-    "mycourses.empty": "You haven't started any courses yet",
-    "mycourses.empty_desc": "Explore exciting courses and start your journey to level up your skills.",
-    "live.title": "Live Session Schedule",
-    "live.desc": "Join online sessions with instructors to get answers and deepen your knowledge.",
-    "live.not_started": "Not Started",
-    "live.room": "Online Classroom",
-    "common.home": "Home",
-    "common.system_management": "System Management",
     "admin.active_courses": "Active Courses",
     "admin.active_today": "Active Today",
     "admin.live_sessions": "Live Sessions",
@@ -259,6 +275,8 @@ const translations: Record<Language, Record<string, string>> = {
     "admin.loading_error": "Error loading statistics",
     "admin.upcoming": "Upcoming",
     "admin.today": "today",
+
+    // Admin Course Management
     "admin.courses.status_published": "Active",
     "admin.courses.status_hidden": "Hidden",
     "admin.courses.manage_lessons": "Manage Lessons",
@@ -277,6 +295,34 @@ const translations: Record<Language, Record<string, string>> = {
     "admin.courses.save_link": "Save Link",
     "admin.courses.summary_label": "Summary / Key Content",
     "admin.courses.tip": "Tip: Use line breaks to separate key points.",
+    "admin.courses.students_count": "Students",
+
+    // Course Page
+    "course.back": "Back to Dashboard",
+    "course.progress": "Progress",
+    "course.learning_status": "Learning",
+    "course.live_now": "Live Now",
+    "course.live_msg": "Join the live room to ask questions!",
+    "course.progress_label": "Progress",
+    "course.lock_msg": "Complete previous lesson to unlock",
+    "course.zalo_group": "Zalo Community Group",
+    "course.lesson": "Lesson",
+    "course.summary": "Lesson Summary",
+    "course.mark_complete": "Mark as Completed",
+    "course.completed": "Lesson Completed",
+
+    // AI Chatbot
+    "ai.title": "VieSync Learning Assistant",
+    "ai.status": "READY TO HELP",
+    "ai.welcome": "Welcome! How can I help you with today's lesson?",
+    "ai.suggest_title": "SUGGESTED TOPICS:",
+    "ai.suggest_1": "How to learn more effectively?",
+    "ai.suggest_2": "Explain more about this lesson",
+    "ai.suggest_3": "Summarize key points",
+    "ai.suggest_4": "Create a review quiz",
+    "ai.input_placeholder": "Type your message...",
+
+    // User Types & Pain Points
     "usertype.STUDENT": "Student",
     "usertype.PROFESSIONAL": "Professional",
     "usertype.CAREER_CHANGER": "Career Changer",
@@ -287,6 +333,13 @@ const translations: Record<Language, Record<string, string>> = {
     "painpoint.COST": "High cost",
     "painpoint.INTERACTION": "No interaction",
     "painpoint.PRACTICE": "Few practice",
+    "painpoint.Thiếu kỹ năng thực tế để xin việc": "Lack of practical skills for job seeking",
+    "painpoint.Không biết bắt đầu từ đâu": "Don't know where to start",
+    "painpoint.Chi phí các khóa học quá cao": "Course fees are too high",
+    "painpoint.Thiếu sự tương tác với giảng viên": "Lack of interaction with instructors",
+    "painpoint.Khó khăn trong việc sắp xếp thời gian": "Difficulty in time management",
+
+    // Days & Calendar
     "day.Mon": "Mon",
     "day.Tue": "Tue",
     "day.Wed": "Wed",
@@ -294,9 +347,8 @@ const translations: Record<Language, Record<string, string>> = {
     "day.Fri": "Fri",
     "day.Sat": "Sat",
     "day.Sun": "Sun",
-    "dashboard.recommended": "AI Recommended for you",
-    "dashboard.continue": "Continue Learning",
-    "dashboard.start": "Start Learning Now",
+
+    // Admin Users
     "admin.users.search_placeholder": "Search by name or email...",
     "admin.users.export": "Export CSV",
     "admin.users.header_user": "USER",
@@ -307,40 +359,31 @@ const translations: Record<Language, Record<string, string>> = {
     "admin.users.header_progress": "PROGRESS",
     "admin.users.header_joined": "JOINED",
     "admin.users.not_started": "Not started",
-    "course.back": "Back to Dashboard",
-    "course.lesson": "Lesson",
-    "course.progress": "Progress",
-    "course.learning_status": "Learning",
-    "course.summary": "Lesson Summary",
-    "course.mark_complete": "Mark as Completed",
-    "course.completed": "Lesson Completed",
-    "course.zalo_group": "Zalo Community Group",
-    "course.lock_msg": "Complete previous lesson to unlock",
-    "course.live_now": "Live Now",
-    "course.live_msg": "Join the live room to ask questions!",
-    "ai.title": "VieSync Learning Assistant",
-    "ai.status": "READY TO HELP",
-    "ai.welcome": "Welcome to the course! I am the VieSync Learning Assistant. Here are some topics I can help you with:",
-    "ai.suggest_1": "How to overcome fear of public speaking?",
-    "ai.suggest_2": "How to listen more actively?",
-    "ai.suggest_3": "Handling difficult questions?",
-    "ai.suggest_4": "How to chat with other students?",
-    "ai.input_placeholder": "Do you have any other questions?",
-    "course.Kỹ Năng Giao Tiếp & Thuyết Trình Chuyên Nghiệp_title": "Professional Communication & Presentation Skills",
-    "lesson.Nghệ Thuật Lắng Nghe Chủ Động_title": "The Art of Active Listening",
-    "lesson.Lắng nghe chủ động là gì?": "What is active listening?",
-    "lesson.Các rào cản khi lắng nghe.": "Barriers to listening.",
-    "lesson.Kỹ thuật phản hồi.": "Feedback techniques.",
-    "painpoint.Thiếu kỹ năng thực tế để xin việc": "Lack of practical skills for job seeking",
-    "painpoint.Không biết bắt đầu từ đâu": "Don't know where to start",
-    "painpoint.Chi phí các khóa học quá cao": "Course fees are too high",
-    "painpoint.Thiếu sự tương tác với giảng viên": "Lack of interaction with instructors",
-    "painpoint.Khó khăn trong việc sắp xếp thời gian": "Difficulty in time management",
+
+    // Settings
     "settings.title": "System Settings",
     "settings.language": "Display Language",
     "settings.profile": "Personal Profile",
     "settings.save": "Save Changes",
-    "common.loading": "Loading...",
+
+    // Explore
+    "explore.title": "Explore Courses",
+    "explore.desc": "Find the course that fits your goals",
+    "explore.all": "All",
+
+    // My Courses
+    "mycourses.title": "My Courses",
+    "mycourses.desc": "Track your learning progress",
+    "mycourses.learning": "Learning",
+    "mycourses.completed": "Completed",
+    "mycourses.empty": "You haven't started any courses yet",
+    "mycourses.empty_desc": "Explore exciting courses and start your journey to level up your skills.",
+
+    // Live Session
+    "live.title": "Live Session Schedule",
+    "live.desc": "Join online sessions with instructors to get answers and deepen your knowledge.",
+    "live.not_started": "Not Started",
+    "live.room": "Online Classroom",
   }
 }
 

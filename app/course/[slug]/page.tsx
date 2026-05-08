@@ -16,6 +16,7 @@ export default function CoursePage() {
   const { t } = useLanguage()
   
   const [course, setCourse] = useState<any>(null)
+  const [user, setUser] = useState<{ email: string; name: string } | null>(null)
   const [progress, setProgress] = useState({ completedLessons: [] as string[], percentComplete: 0 })
   const [isLoading, setIsLoading] = useState(true)
   const [isCompleting, setIsCompleting] = useState(false)
@@ -27,6 +28,7 @@ export default function CoursePage() {
       if (res.ok) {
         const data = await res.json()
         setCourse(data.course)
+        setUser(data.user)
         setProgress(data.progress || { completedLessons: [], percentComplete: 0 })
       }
     } catch (e) {
@@ -186,8 +188,8 @@ export default function CoursePage() {
         <div className="w-full aspect-video relative bg-black flex-shrink-0">
           <SecuredVideoPlayer
             youtubeId={activeLesson?.youtubeVideoId || "dQw4w9WgXcQ"}
-            userEmail="user@viesync.com"
-            userName="Student"
+            userEmail={user?.email || "student@viesync.com"}
+            userName={user?.name || "Student"}
           />
         </div>
         <div className="flex-1 overflow-y-auto bg-white p-8 lg:p-12 border-t border-[#E2EAF4]">

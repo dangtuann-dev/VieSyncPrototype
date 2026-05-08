@@ -64,7 +64,7 @@ export function CourseCard({ course, compact = false }: { course: any; compact?:
         </p>
 
         <div className="flex items-center gap-4 text-[10px] font-bold text-slate-400 border-t border-[#F1F5FD] pt-4 uppercase">
-          <span className="flex items-center gap-1.5"><i className="fa-solid fa-clock opacity-50"></i> 120 {t('common.minutes')}</span>
+          <span className="flex items-center gap-1.5"><i className="fa-solid fa-clock opacity-50"></i> {course.lessons?.reduce((acc: number, l: any) => acc + (l.duration || 0), 0) || 0} {t('common.minutes')}</span>
           <span className="flex items-center gap-1.5"><i className="fa-solid fa-book-bookmark opacity-50"></i> {lessonCount} {t('common.lessons')}</span>
         </div>
       </div>
