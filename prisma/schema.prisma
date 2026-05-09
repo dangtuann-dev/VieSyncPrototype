@@ -72,7 +72,7 @@ model UserProfile {
   goals           String[]                        // mục tiêu học tập
   recommendedPath String?                         // slug lộ trình được ML gợi ý
 
-  user            User      @relation(fields: [userId], references: [id])
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }
@@ -119,7 +119,7 @@ model CourseProgress {
   startedAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
-  user            User      @relation(fields: [userId], references: [id])
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   course          Course    @relation(fields: [courseId], references: [id])
   @@unique([userId, courseId])
 }
