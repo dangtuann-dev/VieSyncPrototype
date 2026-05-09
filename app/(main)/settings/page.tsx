@@ -38,7 +38,7 @@ export default function SettingsPage() {
         setIsPageLoading(false)
       })
       .catch(() => {
-        toast.error("Không thể tải thông tin hồ sơ")
+        toast.error(t('admin.loading_error'))
         setIsPageLoading(false)
       })
   }, [])
@@ -56,10 +56,10 @@ export default function SettingsPage() {
           userType: profile.userType
         })
       })
-      if (res.ok) toast.success(t('settings.save') + " thành công!")
-      else toast.error("Có lỗi xảy ra")
+      if (res.ok) toast.success(t('settings.save'))
+      else toast.error("Error")
     } catch (e) {
-      toast.error("Lỗi kết nối")
+      toast.error("Connection Error")
     } finally {
       setIsSaving(false)
     }
@@ -68,7 +68,7 @@ export default function SettingsPage() {
   const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault()
     if (passwords.new !== passwords.confirm) {
-      toast.error("Mật khẩu xác nhận không khớp")
+      toast.error("Passwords do not match")
       return
     }
     setIsSaving(true)
@@ -79,13 +79,13 @@ export default function SettingsPage() {
       })
       const data = await res.json()
       if (res.ok) {
-        toast.success("Đã đổi mật khẩu thành công")
+        toast.success(t('settings.update_pass'))
         setPasswords({ current: "", new: "", confirm: "" })
       } else {
-        toast.error(data.error || "Lỗi cập nhật mật khẩu")
+        toast.error(data.error || "Error")
       }
     } catch (e) {
-      toast.error("Lỗi hệ thống")
+      toast.error("System Error")
     } finally {
       setIsSaving(false)
     }
@@ -96,7 +96,7 @@ export default function SettingsPage() {
   return (
     <div className="p-8 max-w-4xl mx-auto animate-fade-up pb-20">
       <h1 className="text-3xl font-display font-bold text-slate-900 mb-2">{t('settings.title')}</h1>
-      <p className="text-slate-500 mb-10">Quản lý tùy chọn cá nhân và cấu hình hệ thống của bạn.</p>
+      <p className="text-slate-500 mb-10">{t('settings.settings_desc')}</p>
 
       <div className="space-y-8">
         {/* Language Section */}
@@ -107,7 +107,7 @@ export default function SettingsPage() {
             </div>
             <div>
               <h2 className="text-xl font-bold text-slate-900">{t('settings.language')}</h2>
-              <p className="text-sm text-slate-500">Chọn ngôn ngữ hiển thị trên toàn hệ thống</p>
+              <p className="text-sm text-slate-500">{t('settings.language_desc')}</p>
             </div>
           </div>
 
@@ -144,21 +144,21 @@ export default function SettingsPage() {
             </div>
             <div>
               <h2 className="text-xl font-bold text-slate-900">{t('settings.profile')}</h2>
-              <p className="text-sm text-slate-500">Quản lý định danh và vai trò của bạn</p>
+              <p className="text-sm text-slate-500">{t('settings.profile_desc')}</p>
             </div>
           </div>
 
           <form onSubmit={handleSaveProfile} className="space-y-10">
             {/* Avatar Selector */}
             <div className="space-y-4">
-              <p className="text-sm font-bold text-slate-700">Ảnh đại diện của bạn</p>
+              <p className="text-sm font-bold text-slate-700">{t('settings.avatar')}</p>
               <div className="flex flex-wrap gap-4">
                 {["👨‍🎓", "👩‍🎓", "👨‍💻", "👩‍💻", "🧑‍💼", "👩‍💼", "👨‍🏫", "👩‍🏫"].map(emoji => (
                   <button
                     key={emoji}
                     type="button"
                     onClick={() => setProfile({...profile, image: emoji})}
-                    className={`w-16 h-16 rounded-2xl text-3xl flex items-center justify-center transition-all ${profile.image === emoji ? 'bg-blue-600 shadow-xl scale-110' : 'bg-slate-50 hover:bg-slate-100'}`}
+                    className={`w-16 h-16 rounded-2xl text-3xl flex items-center justify-center transition-all ${profile.image === emoji ? 'bg-blue-600 shadow-xl scale-110 text-white' : 'bg-slate-50 hover:bg-slate-100'}`}
                   >
                     {emoji}
                   </button>
@@ -168,13 +168,13 @@ export default function SettingsPage() {
 
             {/* User Type Selector */}
             <div className="space-y-4">
-               <p className="text-sm font-bold text-slate-700">Bạn đang là ai?</p>
+               <p className="text-sm font-bold text-slate-700">{t('settings.role_q')}</p>
                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                  {[
-                   { id: 'STUDENT', label: 'Sinh viên' },
-                   { id: 'PROFESSIONAL', label: 'Người đi làm' },
-                   { id: 'CAREER_CHANGER', label: 'Chuyển ngành' },
-                   { id: 'INSTRUCTOR', label: 'Giảng viên' }
+                   { id: 'STUDENT', key: 'usertype.STUDENT' },
+                   { id: 'PROFESSIONAL', key: 'usertype.PROFESSIONAL' },
+                   { id: 'CAREER_CHANGER', key: 'usertype.CAREER_CHANGER' },
+                   { id: 'INSTRUCTOR', key: 'usertype.INSTRUCTOR' }
                  ].map(role => (
                    <button
                      key={role.id}
@@ -182,7 +182,7 @@ export default function SettingsPage() {
                      onClick={() => setProfile({...profile, userType: role.id})}
                      className={`px-4 py-3 rounded-xl text-xs font-bold transition-all border ${profile.userType === role.id ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'}`}
                    >
-                     {role.label}
+                     {t(role.key)}
                    </button>
                  ))}
                </div>
@@ -190,13 +190,13 @@ export default function SettingsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
               <Input
-                label="Họ và tên"
+                label={t('settings.name')}
                 value={profile.name}
                 onChange={e => setProfile({...profile, name: e.target.value})}
-                placeholder="Ví dụ: Nguyễn Văn A"
+                placeholder="..."
               />
               <Input
-                label="Số điện thoại"
+                label={t('settings.phone')}
                 value={profile.phone}
                 onChange={e => setProfile({...profile, phone: e.target.value})}
                 placeholder="09xx xxx xxx"
@@ -205,16 +205,16 @@ export default function SettingsPage() {
             
             <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
                <div>
-                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Email đăng ký</p>
+                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">{t('settings.email_label')}</p>
                  <p className="text-sm font-semibold text-slate-600">{profile.email}</p>
                </div>
-               <span className="text-[10px] bg-slate-200 text-slate-500 px-2 py-0.5 rounded font-bold">KHÔNG THỂ THAY ĐỔI</span>
+               <span className="text-[10px] bg-slate-200 text-slate-500 px-2 py-0.5 rounded font-bold">{t('settings.no_change')}</span>
             </div>
 
             <div className="flex justify-end pt-4">
               <Button type="submit" disabled={isSaving} className="gap-2 px-10 py-6 text-base shadow-2xl">
                 {isSaving ? <Loader2 size={20} className="animate-spin" /> : <Save size={20} />}
-                Lưu hồ sơ chuyên gia
+                {t('settings.save_expert')}
               </Button>
             </div>
           </form>
@@ -227,14 +227,14 @@ export default function SettingsPage() {
               <Shield size={24} />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-slate-900">Bảo mật</h2>
-              <p className="text-sm text-slate-500">Quản lý mật khẩu và an toàn tài khoản</p>
+              <h2 className="text-xl font-bold text-slate-900">{t('settings.security')}</h2>
+              <p className="text-sm text-slate-500">{t('settings.security_desc')}</p>
             </div>
           </div>
 
           <form onSubmit={handleUpdatePassword} className="space-y-6 max-w-xl">
             <Input
-              label="Mật khẩu hiện tại"
+              label={t('settings.current_pass')}
               type="password"
               value={passwords.current}
               onChange={e => setPasswords({...passwords, current: e.target.value})}
@@ -242,14 +242,14 @@ export default function SettingsPage() {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input
-                label="Mật khẩu mới"
+                label={t('settings.new_pass')}
                 type="password"
                 value={passwords.new}
                 onChange={e => setPasswords({...passwords, new: e.target.value})}
                 placeholder="••••••••"
               />
               <Input
-                label="Xác nhận mật khẩu mới"
+                label={t('settings.confirm_pass')}
                 type="password"
                 value={passwords.confirm}
                 onChange={e => setPasswords({...passwords, confirm: e.target.value})}
@@ -258,7 +258,7 @@ export default function SettingsPage() {
             </div>
             <div className="flex justify-end pt-2">
               <Button type="submit" variant="secondary" disabled={isSaving} className="gap-2">
-                <Lock size={16} /> Cập nhật mật khẩu
+                <Lock size={16} /> {t('settings.update_pass')}
               </Button>
             </div>
           </form>
