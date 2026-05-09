@@ -87,7 +87,7 @@ export default function CoursePage() {
     return translated === key ? line : translated
   }
 
-  if (isLoading) return <div className="flex h-screen items-center justify-center bg-white"><Loader2 className="animate-spin text-blue-600" /></div>
+  if (isLoading) return <div className="flex h-screen items-center justify-center bg-white"><Loader2 className="animate-spin text-blue-600" size={32} /></div>
   if (!course) return <div className="p-20 text-center">Course not found</div>
 
   const activeLesson = selectedLesson || course.lessons[0]
@@ -95,72 +95,39 @@ export default function CoursePage() {
 
   return (
     <div className="flex flex-col lg:flex-row lg:h-screen bg-[#F8FAFF] overflow-y-auto lg:overflow-hidden">
-      {/* Mobile Sticky Header */}
-      <div className="lg:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#E2EAF4] px-4 py-3 flex items-center justify-between">
-        <Link href="/dashboard" className="flex items-center gap-2 text-slate-900 font-bold">
-          <ChevronLeft size={20} className="text-blue-600" />
-          <span className="text-sm">VieSync</span>
-        </Link>
-        <div className="text-[10px] font-bold px-2 py-1 bg-blue-50 text-blue-600 rounded-full uppercase tracking-wider">
-          {t('course.learning_status')}
+      {/* Mobile Header & Progress (TOP on mobile) */}
+      <div className="lg:hidden bg-white border-b border-[#E2EAF4]">
+        <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#E2EAF4] px-4 py-3 flex items-center justify-between">
+          <Link href="/dashboard" className="flex items-center gap-2 text-slate-900 font-bold">
+            <ChevronLeft size={20} className="text-blue-600" />
+            <span className="text-sm">VieSync</span>
+          </Link>
+          <div className="text-[10px] font-bold px-2 py-1 bg-blue-50 text-blue-600 rounded-full uppercase tracking-wider">
+            {t('course.learning_status')}
+          </div>
+        </div>
+        
+        <div className="p-6">
+          <Link href="/dashboard" className="inline-flex items-center gap-1.5 text-xs font-black text-slate-400 hover:text-blue-600 mb-4 transition-colors uppercase tracking-widest">
+            <ChevronLeft size={14} /> {t('course.back')}
+          </Link>
+          <h2 className="font-display font-black text-slate-900 text-lg leading-snug tracking-tight mb-6">
+            {getTranslatedTitle(course.title)}
+          </h2>
+          <div className="flex justify-between text-[10px] mb-2 font-black uppercase tracking-widest">
+            <span className="text-slate-400">{t('course.progress')}</span>
+            <span className="text-blue-600 font-display">{Math.round(progress.percentComplete)}%</span>
+          </div>
+          <div className="h-2 bg-[#E2EAF4] rounded-full overflow-hidden shadow-inner">
+            <div className="h-full bg-blue-600 rounded-full transition-all duration-700 shadow-[0_0_12px_rgba(37,99,235,0.3)]" style={{ width: `${progress.percentComplete}%` }} />
+          </div>
         </div>
       </div>
 
-      {/* Video area - Top on mobile */}
-      <main className="flex-1 flex flex-col min-w-0 bg-black overflow-hidden lg:h-full lg:order-2">
-        <div className="w-full aspect-video relative bg-black flex-shrink-0">
-          <SecuredVideoPlayer
-            youtubeId={activeLesson?.youtubeVideoId || "dQw4w9WgXcQ"}
-            userEmail={user?.email || "student@viesync.com"}
-            userName={user?.name || "Student"}
-          />
-        </div>
-        <div className="flex-1 overflow-y-auto bg-white p-6 lg:p-12 border-t border-[#E2EAF4]">
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-4">
-              {t('course.lesson')} {activeIndex + 1} · {activeLesson?.duration || 0} mins
-            </div>
-            <h1 className="text-2xl lg:text-3xl font-display font-black text-slate-900 mb-4 tracking-tight">
-              {getTranslatedTitle(activeLesson?.title, 'lesson')}
-            </h1>
-            
-            {activeLesson?.transcript && (
-              <div className="mb-10 p-6 lg:p-8 bg-slate-50 rounded-[2rem] border border-slate-100 shadow-inner">
-                <h4 className="text-xs font-black text-slate-400 mb-6 flex items-center gap-2 uppercase tracking-widest">
-                  <Info size={16} className="text-blue-500" /> {t('course.summary')}
-                </h4>
-                <div className="text-sm text-slate-600 space-y-4 font-medium leading-relaxed">
-                  {activeLesson.transcript.split('\n').map((line: string, i: number) => (
-                    <p key={i} className="flex items-start gap-3">
-                       <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" />
-                       {getTranslatedLine(line)}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {!isCompleted(activeLesson?.id) ? (
-              <button 
-                onClick={() => handleComplete(course.id, activeLesson.id)}
-                disabled={isCompleting}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-black text-xs px-10 py-4 rounded-2xl shadow-xl shadow-blue-100 hover:-translate-y-1 transition-all duration-300 flex items-center gap-2 disabled:opacity-50"
-              >
-                {isCompleting ? <Loader2 className="animate-spin" size={18} /> : <Check size={18} strokeWidth={3} />} 
-                {t('course.mark_complete')}
-              </button>
-            ) : (
-              <div className="inline-flex items-center gap-3 px-10 py-4 rounded-2xl border-2 border-emerald-500 text-emerald-600 font-black text-xs bg-emerald-50 shadow-lg shadow-emerald-50">
-                <Check size={20} strokeWidth={4} /> {t('course.completed')}
-              </div>
-            )}
-          </div>
-        </div>
-      </main>
-
-      {/* Sidebar - Below video on mobile */}
-      <aside className="w-full lg:w-[320px] border-r border-[#E2EAF4] bg-white flex flex-col shrink-0 h-[50vh] lg:h-full border-b lg:border-b-0 lg:order-1">
-        <div className="p-6 border-b border-[#E2EAF4]">
+      {/* Sidebar - Desktop Only Header, Content for both */}
+      <aside className="w-full lg:w-[320px] border-r border-[#E2EAF4] bg-white flex flex-col shrink-0 h-auto lg:h-full border-b lg:border-b-0 lg:order-1">
+        {/* Desktop Header Only */}
+        <div className="hidden lg:block p-6 border-b border-[#E2EAF4]">
           <Link href="/dashboard" className="inline-flex items-center gap-1.5 text-xs font-black text-slate-400 hover:text-blue-600 mb-4 transition-colors uppercase tracking-widest">
             <ChevronLeft size={14} /> {t('course.back')}
           </Link>
@@ -178,7 +145,7 @@ export default function CoursePage() {
           </div>
         </div>
 
-        <div className="flex-1 flex flex-col min-h-0 bg-white overflow-hidden">
+        <div className="flex-1 flex flex-col min-h-[400px] lg:min-h-0 bg-white overflow-hidden">
           <div className="flex border-b border-[#E2EAF4] shrink-0 bg-white">
             <button 
               onClick={() => setActiveTab('lessons')}
@@ -302,7 +269,59 @@ export default function CoursePage() {
         </div>
       </aside>
 
-      {/* Chatbot sidebar - Right on desktop, bottom on mobile */}
+      {/* Video area - Middle on mobile */}
+      <main className="flex-1 flex flex-col min-w-0 bg-black overflow-hidden lg:h-full lg:order-2">
+        <div className="w-full aspect-video relative bg-black flex-shrink-0">
+          <SecuredVideoPlayer
+            youtubeId={activeLesson?.youtubeVideoId || "dQw4w9WgXcQ"}
+            userEmail={user?.email || "student@viesync.com"}
+            userName={user?.name || "Student"}
+          />
+        </div>
+        <div className="flex-1 overflow-y-auto bg-white p-6 lg:p-12 border-t border-[#E2EAF4]">
+          <div className="max-w-4xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-4">
+              {t('course.lesson')} {activeIndex + 1} · {activeLesson?.duration || 0} mins
+            </div>
+            <h1 className="text-2xl lg:text-3xl font-display font-black text-slate-900 mb-4 tracking-tight">
+              {getTranslatedTitle(activeLesson?.title, 'lesson')}
+            </h1>
+            
+            {activeLesson?.transcript && (
+              <div className="mb-10 p-6 lg:p-8 bg-slate-50 rounded-[2rem] border border-slate-100 shadow-inner">
+                <h4 className="text-xs font-black text-slate-400 mb-6 flex items-center gap-2 uppercase tracking-widest">
+                  <Info size={16} className="text-blue-500" /> {t('course.summary')}
+                </h4>
+                <div className="text-sm text-slate-600 space-y-4 font-medium leading-relaxed">
+                  {activeLesson.transcript.split('\n').map((line: string, i: number) => (
+                    <p key={i} className="flex items-start gap-3">
+                       <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" />
+                       {getTranslatedLine(line)}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {!isCompleted(activeLesson?.id) ? (
+              <button 
+                onClick={() => handleComplete(course.id, activeLesson.id)}
+                disabled={isCompleting}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-black text-xs px-10 py-4 rounded-2xl shadow-xl shadow-blue-100 hover:-translate-y-1 transition-all duration-300 flex items-center gap-2 disabled:opacity-50"
+              >
+                {isCompleting ? <Loader2 className="animate-spin" size={18} /> : <Check size={18} strokeWidth={3} />} 
+                {t('course.mark_complete')}
+              </button>
+            ) : (
+              <div className="inline-flex items-center gap-3 px-10 py-4 rounded-2xl border-2 border-emerald-500 text-emerald-600 font-black text-xs bg-emerald-50 shadow-lg shadow-emerald-50">
+                <Check size={20} strokeWidth={4} /> {t('course.completed')}
+              </div>
+            )}
+          </div>
+        </div>
+      </main>
+
+      {/* Chatbot sidebar - Bottom on mobile */}
       <aside className="w-full lg:w-[360px] border-l border-[#E2EAF4] bg-white shrink-0 h-[50vh] lg:h-full lg:order-3">
         <ChatBot lessonTopic={getTranslatedTitle(course.title)} zaloLink={course.zaloLink} />
       </aside>

@@ -99,44 +99,7 @@ export default function SettingsPage() {
       <p className="text-slate-500 mb-10">{t('settings.settings_desc')}</p>
 
       <div className="space-y-8">
-        {/* Language Section */}
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 shadow-sm border border-blue-100">
-              <Globe size={24} />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-slate-900">{t('settings.language')}</h2>
-              <p className="text-sm text-slate-500">{t('settings.language_desc')}</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button
-              onClick={() => setLanguage('vi')}
-              className={`flex items-center justify-between p-5 rounded-2xl border-2 transition-all ${language === 'vi' ? 'border-blue-500 bg-blue-50/50' : 'border-slate-100 hover:border-blue-200'}`}
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-3xl">🇻🇳</span>
-                <span className={`font-bold ${language === 'vi' ? 'text-blue-900' : 'text-slate-700'}`}>Tiếng Việt</span>
-              </div>
-              {language === 'vi' && <div className="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]" />}
-            </button>
-
-            <button
-              onClick={() => setLanguage('en')}
-              className={`flex items-center justify-between p-5 rounded-2xl border-2 transition-all ${language === 'en' ? 'border-blue-500 bg-blue-50/50' : 'border-slate-100 hover:border-blue-200'}`}
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-3xl">🇺🇸</span>
-                <span className={`font-bold ${language === 'en' ? 'text-blue-900' : 'text-slate-700'}`}>English</span>
-              </div>
-              {language === 'en' && <div className="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Profile Section */}
+        {/* Profile Section - NOW FIRST */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm">
           <div className="flex items-center gap-4 mb-10">
             <div className="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 shadow-sm border border-purple-100">
@@ -218,6 +181,43 @@ export default function SettingsPage() {
               </Button>
             </div>
           </form>
+        </div>
+
+        {/* Language Section - MOVED DOWN */}
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 shadow-sm border border-blue-100">
+              <Globe size={24} />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-slate-900">{t('settings.language')}</h2>
+              <p className="text-sm text-slate-500">{t('settings.language_desc')}</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button
+              onClick={() => setLanguage('vi')}
+              className={`flex items-center justify-between p-5 rounded-2xl border-2 transition-all ${language === 'vi' ? 'border-blue-500 bg-blue-50/50' : 'border-slate-100 hover:border-blue-200'}`}
+            >
+              <div className="flex items-center gap-4">
+                <span className="text-3xl">🇻🇳</span>
+                <span className={`font-bold ${language === 'vi' ? 'text-blue-900' : 'text-slate-700'}`}>Tiếng Việt</span>
+              </div>
+              {language === 'vi' && <div className="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]" />}
+            </button>
+
+            <button
+              onClick={() => setLanguage('en')}
+              className={`flex items-center justify-between p-5 rounded-2xl border-2 transition-all ${language === 'en' ? 'border-blue-500 bg-blue-50/50' : 'border-slate-100 hover:border-blue-200'}`}
+            >
+              <div className="flex items-center gap-4">
+                <span className="text-3xl">🇺🇸</span>
+                <span className={`font-bold ${language === 'en' ? 'text-blue-900' : 'text-slate-700'}`}>English</span>
+              </div>
+              {language === 'en' && <div className="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]" />}
+            </button>
+          </div>
         </div>
 
         {/* Security Section */}
