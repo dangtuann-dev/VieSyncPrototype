@@ -82,6 +82,12 @@ export default function CoursePage() {
   }
 
   const getTranslatedLine = (line: string) => {
+    if (language === 'en') {
+      // Mock translations for demo purposes
+      if (line.includes("Steve Jobs chia sẻ triết lý")) return "Steve Jobs shares the unique management philosophy at Apple, where the company is run like the 'world's largest startup'."
+      if (line.includes("Cấu trúc phẳng")) return "Flat structure and collaboration: Apple doesn't have committees. Instead, individuals are responsible for specific areas (iPhone software, Mac hardware, marketing, etc.), fostering teamwork and synergy."
+      if (line.includes("Kiểm soát chất lượng")) return "Quality control: Each product must meet extremely high standards before reaching users."
+    }
     const key = `lesson.${line.trim()}`
     const translated = t(key)
     return translated === key ? line : translated

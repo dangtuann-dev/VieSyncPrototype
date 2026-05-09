@@ -213,6 +213,12 @@ const translations: Record<Language, Record<string, string>> = {
     "live.desc": "Tham gia các buổi học trực tuyến cùng giảng viên để giải đáp thắc mắc và đào sâu kiến thức.",
     "live.not_started": "Chưa bắt đầu",
     "live.room": "Phòng học trực tuyến",
+
+    // Dynamic Data (Demo)
+    "course.Nhập Môn Quản Trị Doanh Nghiệp Hiện Đại_title": "Modern Business Management Introduction",
+    "lesson.Triết lý quản lý con người theo Steve Jobs_title": "Steve Jobs' Human Management Philosophy",
+    "lesson.Cách quản lý căng thẳng được chia sẻ bởi Barack Obama_title": "Stress Management by Barack Obama",
+    "lesson.Cải thiện kỹ năng nói_title": "Improving Public Speaking Skills",
   },
   en: {
     // Navigation
@@ -416,6 +422,12 @@ const translations: Record<Language, Record<string, string>> = {
     "live.desc": "Join online sessions with instructors to get answers and deepen your knowledge.",
     "live.not_started": "Not Started",
     "live.room": "Online Classroom",
+
+    // Dynamic Data (Demo)
+    "course.Nhập Môn Quản Trị Doanh Nghiệp Hiện Đại_title": "Modern Business Management Introduction",
+    "lesson.Triết lý quản lý con người theo Steve Jobs_title": "Steve Jobs' Human Management Philosophy",
+    "lesson.Cách quản lý căng thẳng được chia sẻ bởi Barack Obama_title": "Stress Management by Barack Obama",
+    "lesson.Cải thiện kỹ năng nói_title": "Improving Public Speaking Skills",
   }
 }
 
