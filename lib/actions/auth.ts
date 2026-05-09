@@ -90,8 +90,9 @@ export async function registerAction(state: AuthFormState, formData: FormData): 
       isAdmin: user.isAdmin,
       onboarded: user.onboarded,
     })
-  } catch {
-    return { errors: { general: ['Đăng ký thất bại. Vui lòng thử lại.'] } }
+  } catch (error: any) {
+    console.error("Registration Error:", error)
+    return { errors: { general: [`Đăng ký thất bại: ${error?.message || "Lỗi không xác định"}. Vui lòng thử lại.`] } }
   }
 
   redirect('/onboarding')
