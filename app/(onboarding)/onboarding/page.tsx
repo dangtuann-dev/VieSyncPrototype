@@ -152,8 +152,8 @@ export default function OnboardingPage() {
                   <div className={`absolute left-0 top-0 bottom-0 w-1 ${opt.color}`} />
                   <div className={`w-12 h-12 ml-2 rounded-xl flex items-center justify-center text-2xl shrink-0 ${interests.includes(opt.id) ? 'bg-blue-100' : 'bg-slate-50'}`}>{opt.icon}</div>
                   <div className="flex-1">
-                    <p className="font-semibold text-slate-800">{opt.label}</p>
-                    <p className="text-sm text-slate-500 mt-0.5">{opt.desc}</p>
+                    <p className="font-semibold text-slate-800">{t(opt.labelKey)}</p>
+                    <p className="text-sm text-slate-500 mt-0.5">{t(opt.descKey)}</p>
                   </div>
                   <div className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 ${interests.includes(opt.id) ? 'border-blue-500 bg-blue-500' : 'border-slate-300'}`}>
                     {interests.includes(opt.id) && <Check size={12} className="text-white" strokeWidth={3} />}
