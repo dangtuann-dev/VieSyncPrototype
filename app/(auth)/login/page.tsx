@@ -32,7 +32,7 @@ export default function LoginPage() {
           id="email"
           name="email"
           type="email"
-          placeholder="hoten@email.com"
+          placeholder={t('auth.email_placeholder')}
           autoComplete="email"
           required
           error={state?.errors?.email?.[0]}
@@ -45,7 +45,7 @@ export default function LoginPage() {
             name="password"
             type={showPassword ? "text" : "password"}
             placeholder="••••••••"
-            autoComplete="current-password"
+          autoComplete="current-password"
             required
             error={state?.errors?.password?.[0]}
           />
@@ -61,10 +61,10 @@ export default function LoginPage() {
         <div className="flex items-center justify-between py-1">
           <label className="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" name="remember" className="w-4 h-4 rounded border-[#E2EAF4] text-blue-600 focus:ring-blue-500" />
-            <span className="text-sm font-medium text-slate-600">Ghi nhớ đăng nhập</span>
+            <span className="text-sm font-medium text-slate-600">{t('auth.remember_me')}</span>
           </label>
           <Link href="#" className="text-sm font-semibold text-blue-600 hover:underline">
-            Quên mật khẩu?
+            {t('auth.forgot_password')}
           </Link>
         </div>
 

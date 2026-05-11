@@ -6,37 +6,42 @@ import { Check, ChevronLeft, Loader2, GraduationCap } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { toast } from "sonner"
 
+import { useLanguage } from "@/context/LanguageContext"
+
 const USER_ROLES = [
-  { id: "STUDENT", label: "Sinh viên / Học sinh", desc: "Đang học tại trường, chuẩn bị ra trường", icon: "🎓" },
-  { id: "PROFESSIONAL", label: "Người đi làm", desc: "Muốn nâng cao kỹ năng trong công việc hiện tại", icon: "💼" },
-  { id: "CAREER_CHANGER", label: "Người chuyển ngành", desc: "Muốn thay đổi hướng nghề nghiệp", icon: "🔄" },
-  { id: "INSTRUCTOR", label: "Giảng viên / Chuyên gia", desc: "Muốn chia sẻ kiến thức và xây dựng thương hiệu", icon: "👨‍🏫" },
+  { id: "STUDENT", labelKey: "onboarding.role_student", descKey: "onboarding.role_student_desc", icon: "🎓" },
+  { id: "PROFESSIONAL", labelKey: "onboarding.role_professional", descKey: "onboarding.role_professional_desc", icon: "💼" },
+  { id: "CAREER_CHANGER", labelKey: "onboarding.role_changer", descKey: "onboarding.role_changer_desc", icon: "🔄" },
+  { id: "INSTRUCTOR", labelKey: "onboarding.role_instructor", descKey: "onboarding.role_instructor_desc", icon: "👨‍🏫" },
 ]
 
 const INTERESTS = [
-  { id: "management", label: "Quản trị & Lãnh đạo", desc: "Ra quyết định, quản lý đội nhóm, tư duy chiến lược", icon: "🏢", color: "bg-blue-500" },
-  { id: "softskills", label: "Kỹ năng mềm & Giao tiếp", desc: "Thuyết trình, đàm phán, xử lý xung đột", icon: "💬", color: "bg-emerald-500" },
-  { id: "it", label: "Lập trình & Công nghệ", desc: "Python, web development, tư duy kỹ thuật", icon: "💻", color: "bg-purple-500" },
-  { id: "marketing", label: "Marketing & Truyền thông", desc: "Content, quảng cáo số, xây dựng thương hiệu", icon: "📣", color: "bg-orange-500" },
+  { id: "management", labelKey: "onboarding.int_management", descKey: "onboarding.int_management_desc", icon: "🏢", color: "bg-blue-500" },
+  { id: "softskills", labelKey: "onboarding.int_softskills", descKey: "onboarding.int_softskills_desc", icon: "💬", color: "bg-emerald-500" },
+  { id: "it", labelKey: "onboarding.int_it", descKey: "onboarding.int_it_desc", icon: "💻", color: "bg-purple-500" },
+  { id: "marketing", labelKey: "onboarding.int_marketing", descKey: "onboarding.int_marketing_desc", icon: "📣", color: "bg-orange-500" },
 ]
 
 const PAIN_POINTS = [
-  "Thiếu kỹ năng thực tế để xin việc",
-  "Học xong không áp dụng được vào thực tế",
-  "Không có thời gian học tập trung",
-  "Cảm thấy cô đơn, thiếu động lực khi học online",
-  "Không biết bắt đầu từ đâu",
-  "Nội dung quá lý thuyết, không cập nhật",
+  { id: "Thiếu kỹ năng thực tế để xin việc", key: "onboarding.pain_skills" },
+  { id: "Học xong không áp dụng được vào thực tế", key: "onboarding.pain_apply" },
+  { id: "Không có thời gian học tập trung", key: "onboarding.pain_time" },
+  { id: "Cảm thấy cô đơn, thiếu động lực khi học online", key: "onboarding.pain_lonely" },
+  { id: "Không biết bắt đầu từ đâu", key: "onboarding.pain_start" },
+  { id: "Nội dung quá lý thuyết, không cập nhật", key: "onboarding.pain_theory" },
 ]
+
 
 export default function OnboardingPage() {
   const router = useRouter()
+  const { t } = useLanguage()
   const [step, setStep] = useState(1)
   const [role, setRole] = useState("")
   const [interests, setInterests] = useState<string[]>([])
   const [painPoints, setPainPoints] = useState<string[]>([])
   const [otherPainPoint, setOtherPainPoint] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
+
 
   const toggleInterest = (id: string) =>
     setInterests(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id])
@@ -100,8 +105,8 @@ export default function OnboardingPage() {
         {step === 1 && (
           <div className="animate-fade-up">
             <div className="text-center mb-8">
-              <h1 className="font-display font-bold text-3xl text-slate-900 mb-2">Xin chào! Hãy cho chúng tôi biết về bạn 👋</h1>
-              <p className="text-slate-500">Chúng tôi sẽ tùy chỉnh lộ trình học phù hợp nhất với bạn</p>
+              <h1 className="font-display font-bold text-3xl text-slate-900 mb-2">{t('onboarding.step1_title')}</h1>
+              <p className="text-slate-500">{t('onboarding.step1_desc')}</p>
             </div>
             <div className="space-y-3">
               {USER_ROLES.map(opt => (
@@ -112,8 +117,8 @@ export default function OnboardingPage() {
                 >
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 ${role === opt.id ? 'bg-blue-100' : 'bg-slate-50'}`}>{opt.icon}</div>
                   <div className="flex-1">
-                    <p className="font-semibold text-slate-800">{opt.label}</p>
-                    <p className="text-sm text-slate-500 mt-0.5">{opt.desc}</p>
+                    <p className="font-semibold text-slate-800">{t(opt.labelKey)}</p>
+                    <p className="text-sm text-slate-500 mt-0.5">{t(opt.descKey)}</p>
                   </div>
                   <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${role === opt.id ? 'border-blue-500 bg-blue-500' : 'border-slate-300'}`}>
                     {role === opt.id && <Check size={12} className="text-white" strokeWidth={3} />}
@@ -122,7 +127,7 @@ export default function OnboardingPage() {
               ))}
             </div>
             <Button className="w-full mt-8" disabled={!role} onClick={() => setStep(2)}>
-              Tiếp theo →
+              {t('onboarding.step_next')}
             </Button>
           </div>
         )}
@@ -131,11 +136,11 @@ export default function OnboardingPage() {
         {step === 2 && (
           <div className="animate-fade-up">
             <button onClick={() => setStep(1)} className="flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-blue-600 mb-4 transition-colors">
-              <ChevronLeft size={16} /> Quay lại
+              <ChevronLeft size={16} /> {t('onboarding.step_back')}
             </button>
             <div className="text-center mb-8">
-              <h1 className="font-display font-bold text-3xl text-slate-900 mb-2">Bạn muốn phát triển kỹ năng gì?</h1>
-              <span className="inline-block bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100">Có thể chọn nhiều lĩnh vực</span>
+              <h1 className="font-display font-bold text-3xl text-slate-900 mb-2">{t('onboarding.step2_title')}</h1>
+              <span className="inline-block bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100">{t('onboarding.step2_desc')}</span>
             </div>
             <div className="space-y-3">
               {INTERESTS.map(opt => (
@@ -157,8 +162,8 @@ export default function OnboardingPage() {
               ))}
             </div>
             <div className="mt-6 flex items-center justify-between">
-              <span className="text-sm font-semibold text-slate-500">Đã chọn <span className="text-blue-600">{interests.length}</span> lĩnh vực</span>
-              <Button disabled={interests.length === 0} onClick={() => setStep(3)}>Tiếp theo →</Button>
+              <span className="text-sm font-semibold text-slate-500">{t('onboarding.step2_count')} <span className="text-blue-600">{interests.length}</span> {t('onboarding.step2_field')}</span>
+              <Button disabled={interests.length === 0} onClick={() => setStep(3)}>{t('onboarding.step_next')}</Button>
             </div>
           </div>
         )}
@@ -167,26 +172,26 @@ export default function OnboardingPage() {
         {step === 3 && (
           <div className="animate-fade-up">
             <button onClick={() => setStep(2)} className="flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-blue-600 mb-4 transition-colors">
-              <ChevronLeft size={16} /> Quay lại
+              <ChevronLeft size={16} /> {t('onboarding.step_back')}
             </button>
             <div className="text-center mb-8">
-              <h1 className="font-display font-bold text-3xl text-slate-900 mb-2">Điều gì đang cản trở bạn phát triển?</h1>
-              <p className="text-slate-500">Giúp chúng tôi hiểu để đề xuất đúng giải pháp</p>
+              <h1 className="font-display font-bold text-3xl text-slate-900 mb-2">{t('onboarding.step3_title')}</h1>
+              <p className="text-slate-500">{t('onboarding.step3_desc')}</p>
             </div>
             <div className="flex flex-wrap gap-2.5 mb-6">
               {PAIN_POINTS.map(point => (
                 <button
-                  key={point}
-                  onClick={() => togglePainPoint(point)}
-                  className={`px-4 py-2.5 rounded-full border text-sm font-semibold transition-all duration-200 ${painPoints.includes(point) ? 'bg-blue-600 text-white border-blue-600 shadow-[0_4px_12px_rgba(37,99,235,0.25)]' : 'bg-white text-slate-600 border-[#E2EAF4] hover:border-blue-300 hover:bg-blue-50'}`}
+                  key={point.id}
+                  onClick={() => togglePainPoint(point.id)}
+                  className={`px-4 py-2.5 rounded-full border text-sm font-semibold transition-all duration-200 ${painPoints.includes(point.id) ? 'bg-blue-600 text-white border-blue-600 shadow-[0_4px_12px_rgba(37,99,235,0.25)]' : 'bg-white text-slate-600 border-[#E2EAF4] hover:border-blue-300 hover:bg-blue-50'}`}
                 >
-                  {point}
+                  {t(point.key)}
                 </button>
               ))}
             </div>
             <input
               type="text"
-              placeholder="Thêm vấn đề khác của bạn... (tuỳ chọn)"
+              placeholder={t('onboarding.step3_other')}
               value={otherPainPoint}
               onChange={e => setOtherPainPoint(e.target.value)}
               className="w-full mb-8 bg-white border border-[#E2EAF4] focus:border-blue-400 focus:ring-4 focus:ring-blue-100 rounded-xl px-4 py-3 text-slate-800 placeholder:text-slate-400 text-sm outline-none transition-all"
@@ -194,7 +199,7 @@ export default function OnboardingPage() {
             {isSubmitting && (
               <div className="mb-8 p-6 rounded-2xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center gap-4 animate-pulse">
                 <Loader2 size={24} className="animate-spin" />
-                <p className="font-bold">Đang hoàn tất hồ sơ và chuyển hướng...</p>
+                <p className="font-bold">{t('onboarding.step3_submitting')}</p>
               </div>
             )}
 
@@ -203,7 +208,7 @@ export default function OnboardingPage() {
               disabled={isSubmitting || (painPoints.length === 0 && !otherPainPoint)}
               onClick={handleComplete}
             >
-              {isSubmitting ? "Vui lòng chờ..." : "Bắt đầu học ngay 🚀"}
+              {isSubmitting ? t('onboarding.please_wait') : t('onboarding.step3_finish')}
             </Button>
           </div>
         )}

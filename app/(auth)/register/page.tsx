@@ -35,11 +35,11 @@ export default function RegisterPage() {
 
       <form action={formAction} className="space-y-4">
         <Input
-          label="Họ và tên"
+          label={t('auth.name')}
           id="name"
           name="name"
           type="text"
-          placeholder="Nguyễn Văn A"
+          placeholder={t('auth.name_placeholder')}
           required
           error={state?.errors?.name?.[0]}
         />
@@ -49,18 +49,18 @@ export default function RegisterPage() {
           id="email"
           name="email"
           type="email"
-          placeholder="email@example.com"
+          placeholder={t('auth.email_placeholder')}
           autoComplete="email"
           required
           error={state?.errors?.email?.[0]}
         />
 
         <Input
-          label="Số điện thoại"
+          label={t('auth.phone')}
           id="phone"
           name="phone"
           type="tel"
-          placeholder="0901 234 567"
+          placeholder={t('auth.phone_placeholder')}
         />
 
         <div className="relative">
@@ -69,7 +69,7 @@ export default function RegisterPage() {
             id="password"
             name="password"
             type={showPassword ? "text" : "password"}
-            placeholder="Tối thiểu 8 ký tự"
+            placeholder={t('auth.password_placeholder')}
             autoComplete="new-password"
             required
             minLength={8}
@@ -95,10 +95,10 @@ export default function RegisterPage() {
 
         <div className="relative">
           <Input
-            label="Xác nhận mật khẩu"
+            label={t('auth.confirm_password')}
             id="confirmPassword"
             type="password"
-            placeholder="Nhập lại mật khẩu"
+            placeholder={t('auth.confirm_password_placeholder')}
             required
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -119,10 +119,10 @@ export default function RegisterPage() {
             className="mt-1 w-4 h-4 rounded border-[#E2EAF4] text-blue-600 focus:ring-blue-500"
           />
           <label htmlFor="terms" className="text-sm font-medium text-slate-600 cursor-pointer">
-            Tôi đồng ý với{' '}
-            <Link href="#" className="text-blue-600 hover:underline">Điều khoản sử dụng</Link>
-            {' '}và{' '}
-            <Link href="#" className="text-blue-600 hover:underline">Chính sách bảo mật</Link>
+            {t('auth.agree')}{' '}
+            <Link href="#" className="text-blue-600 hover:underline">{t('auth.terms')}</Link>
+            {' '}{t('auth.and')}{' '}
+            <Link href="#" className="text-blue-600 hover:underline">{t('auth.privacy')}</Link>
           </label>
         </div>
 
