@@ -278,6 +278,18 @@ const translations: Record<Language, Record<string, string>> = {
     "lesson.Triết lý quản lý con người theo Steve Jobs_title": "Triết lý quản lý con người theo Steve Jobs",
     "lesson.Cách quản lý căng thẳng được chia sẻ bởi Barack Obama_title": "Cách quản lý căng thẳng được chia sẻ bởi Barack Obama",
     "lesson.Cải thiện kỹ năng nói_title": "Cải thiện kỹ năng nói",
+    "lesson.Quản Trị Là Gì & Tại Sao Quan Trọng?_title": "Quản Trị Là Gì & Tại Sao Quan Trọng?",
+    "lesson.Kỹ Năng Ra Quyết Định Trong Quản Trị_title": "Kỹ Năng Ra Quyết Định Trong Quản Trị",
+    "lesson.Xây Dựng & Quản Lý Đội Nhóm_title": "Xây Dựng & Quản Lý Đội Nhóm",
+    "lesson.Nghệ Thuật Lắng Nghe Chủ Động_title": "Nghệ Thuật Lắng Nghe Chủ Động",
+    "lesson.Cấu Trúc Bài Thuyết Trình Thuyết Phục_title": "Cấu Trúc Bài Thuyết Trình Thuyết Phục",
+    "lesson.Xử Lý Xung Đột & Phản Hồi Chuyên Nghiệp_title": "Xử Lý Xung Đột & Phản Hồi Chuyên Nghiệp",
+    "lesson.Tư Duy Lập Trình & Cài Đặt Môi Trường_title": "Tư Duy Lập Trình & Cài Đặt Môi Trường",
+    "lesson.Biến, Kiểu Dữ Liệu & Vòng Lặp Đầu Tiên_title": "Biến, Kiểu Dữ Liệu & Vòng Lặp Đầu Tiên",
+    "lesson.Hàm & Module — Sức Mạnh Tái Sử Dụng Code_title": "Hàm & Module — Sức Mạnh Tái Sử Dụng Code",
+    "lesson.Hiểu Khách Hàng — Nền Tảng Của Mọi Chiến Lược_title": "Hiểu Khách Hàng — Nền Tảng Của Mọi Chiến Lược",
+    "lesson.Content Marketing & Kể Chuyện Thương Hiệu_title": "Content Marketing & Kể Chuyện Thương Hiệu",
+    "lesson.Đo Lường & Tối Ưu Chiến Dịch Marketing_title": "Đo Lường & Tối Ưu Chiến Dịch Marketing",
   },
   en: {
     // Navigation
@@ -546,6 +558,18 @@ const translations: Record<Language, Record<string, string>> = {
     "lesson.Triết lý quản lý con người theo Steve Jobs_title": "Steve Jobs' Human Management Philosophy",
     "lesson.Cách quản lý căng thẳng được chia sẻ bởi Barack Obama_title": "Stress Management by Barack Obama",
     "lesson.Cải thiện kỹ năng nói_title": "Improving Public Speaking Skills",
+    "lesson.Quản Trị Là Gì & Tại Sao Quan Trọng?_title": "What is Management & Why is it Important?",
+    "lesson.Kỹ Năng Ra Quyết Định Trong Quản Trị_title": "Decision Making Skills in Management",
+    "lesson.Xây Dựng & Quản Lý Đội Nhóm_title": "Building & Managing Teams",
+    "lesson.Nghệ Thuật Lắng Nghe Chủ Động_title": "The Art of Active Listening",
+    "lesson.Cấu Trúc Bài Thuyết Trình Thuyết Phục_title": "Persuasive Presentation Structure",
+    "lesson.Xử Lý Xung Đột & Phản Hồi Chuyên Nghiệp_title": "Conflict Resolution & Professional Feedback",
+    "lesson.Tư Duy Lập Trình & Cài Đặt Môi Trường_title": "Programming Mindset & Environment Setup",
+    "lesson.Biến, Kiểu Dữ Liệu & Vòng Lặp Đầu Tiên_title": "Variables, Data Types & First Loops",
+    "lesson.Hàm & Module — Sức Mạnh Tái Sử Dụng Code_title": "Functions & Modules — The Power of Code Reuse",
+    "lesson.Hiểu Khách Hàng — Nền Tảng Của Mọi Chiến Lược_title": "Understanding Customers — The Foundation of Every Strategy",
+    "lesson.Content Marketing & Kể Chuyện Thương Hiệu_title": "Content Marketing & Brand Storytelling",
+    "lesson.Đo Lường & Tối Ưu Chiến Dịch Marketing_title": "Measuring & Optimizing Marketing Campaigns",
   }
 }
 
