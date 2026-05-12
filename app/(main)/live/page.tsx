@@ -25,8 +25,16 @@ export default function StudentLivePage() {
     fetchSessions()
   }, [])
 
-  const getTranslatedCourseTitle = (title: string, field: string) => {
-    const key = `course.${field}_title`
+  const getTranslatedCourseTitle = (title: string) => {
+    if (!title) return ""
+    const key = `course.${title}_title`
+    const translated = t(key)
+    return translated === key ? title : translated
+  }
+
+  const getTranslatedLiveTitle = (title: string) => {
+    if (!title) return ""
+    const key = `live.${title}_title`
     const translated = t(key)
     return translated === key ? title : translated
   }
@@ -63,16 +71,16 @@ export default function StudentLivePage() {
               <div className="flex-1 w-full">
                 <div className="flex items-center gap-3 mb-5">
                    <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100 uppercase tracking-wide">
-                     {getTranslatedCourseTitle(session.course.title, session.course.field)}
+                     {getTranslatedCourseTitle(session.course.title)}
                    </span>
                    {session.isActive && (
                      <span className="flex items-center gap-1.5 text-[10px] font-bold text-red-600 uppercase tracking-widest">
                         <span className="w-2 h-2 bg-red-500 rounded-full animate-ping" />
-                        Live Now
+                        LIVE NOW
                      </span>
                    )}
                 </div>
-                <h3 className="text-2xl font-display font-bold text-slate-900 mb-5">{session.title}</h3>
+                <h3 className="text-2xl font-display font-bold text-slate-900 mb-5">{getTranslatedLiveTitle(session.title)}</h3>
                 <div className="flex flex-wrap items-center gap-8 text-slate-500">
                    <div className="flex items-center gap-2.5 text-sm font-semibold">
                      <Calendar size={18} className="text-blue-600" />
@@ -92,7 +100,7 @@ export default function StudentLivePage() {
                     target="_blank"
                     className="flex items-center justify-center gap-2 px-10 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl transition-all shadow-xl shadow-red-100 hover:-translate-y-1"
                   >
-                    {t('dashboard.start')} <ExternalLink size={20} />
+                    <ExternalLink size={20} /> {t('live.join_now')}
                   </Link>
                 ) : (
                   <button disabled className="w-full md:w-auto flex items-center justify-center gap-2 px-10 py-4 bg-slate-50 text-slate-400 font-bold rounded-2xl border border-slate-100 cursor-not-allowed">

@@ -25,14 +25,16 @@ export default function MyCoursesPage() {
     fetchMyCourses()
   }, [])
 
-  const getTranslatedTitle = (title: string, field: string) => {
-    const key = `course.${field}_title`
+  const getTranslatedTitle = (title: string) => {
+    if (!title) return ""
+    const key = `course.${title}_title`
     const translated = t(key)
     return translated === key ? title : translated
   }
 
-  const getTranslatedDesc = (desc: string, field: string) => {
-    const key = `course.${field}_desc`
+  const getTranslatedDesc = (desc: string) => {
+    if (!desc) return ""
+    const key = `course.${desc.substring(0, 20)}_desc`
     const translated = t(key)
     return translated === key ? desc : translated
   }
@@ -69,10 +71,10 @@ export default function MyCoursesPage() {
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="font-display font-bold text-lg text-slate-900 mb-1">
-                  {getTranslatedTitle(course.title, course.field)}
+                  {getTranslatedTitle(course.title)}
                 </h3>
                 <p className="text-sm text-slate-500 mb-4 line-clamp-1">
-                  {getTranslatedDesc(course.description, course.field)}
+                  {getTranslatedDesc(course.description)}
                 </p>
                 <div className="max-w-md">
                   <div className="flex justify-between text-xs mb-1.5 font-medium">
