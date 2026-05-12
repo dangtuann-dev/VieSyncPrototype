@@ -84,8 +84,10 @@ export default function CoursePage() {
   const getTranslatedLine = (line: string) => {
     if (language === 'en') {
       const dict: Record<string, string> = {
-        "Steve Jobs chia sẻ triết lý": "Steve Jobs shares the unique management philosophy at Apple, where the company is run like the 'world's largest startup'.",
+        "Steve Jobs": "In this video, Steve Jobs shares the unique management philosophy at Apple, where the company is run like the 'world's largest startup'. Here are the key points:",
         "Cấu trúc phẳng": "Flat structure and collaboration: Apple doesn't have committees. Instead, individuals are responsible for specific areas (iPhone software, Mac hardware, marketing, etc.), fostering teamwork and synergy.",
+        "Niềm tin trong quản lý": "Trust in management: The key to success is trusting teams to do their part without strict oversight.",
+        "Văn hóa tranh luận": "Culture of debate: Jobs encouraged employees to challenge him if he was wrong, emphasizing that the company should be run by the best ideas rather than rigid hierarchy.",
         "Kiểm soát chất lượng": "Quality control: Each product must meet extremely high standards before reaching users.",
         "Tổng quan về quản trị.": "Overview of management.",
         "Tầm quan trọng của quản trị doanh nghiệp.": "The importance of business administration.",
@@ -126,10 +128,12 @@ export default function CoursePage() {
       }
       
       const trimmedLine = line.trim()
-      // Prefix matching for the custom Steve Jobs summary
-      if (trimmedLine.startsWith("Steve Jobs chia sẻ triết lý")) return dict["Steve Jobs chia sẻ triết lý"]
-      if (trimmedLine.startsWith("Cấu trúc phẳng")) return dict["Cấu trúc phẳng"]
-      if (trimmedLine.startsWith("Kiểm soát chất lượng")) return dict["Kiểm soát chất lượng"]
+      // Use includes for flexible matching on dynamic admin-entered content
+      if (trimmedLine.includes("Steve Jobs") || trimmedLine.includes("Trong video này")) return dict["Steve Jobs"]
+      if (trimmedLine.includes("Cấu trúc phẳng")) return dict["Cấu trúc phẳng"]
+      if (trimmedLine.includes("Kiểm soát chất lượng")) return dict["Kiểm soát chất lượng"]
+      if (trimmedLine.includes("Niềm tin trong quản lý")) return dict["Niềm tin trong quản lý"]
+      if (trimmedLine.includes("Văn hóa tranh luận")) return dict["Văn hóa tranh luận"]
       
       return dict[trimmedLine] || line
     }
