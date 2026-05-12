@@ -76,67 +76,94 @@ export default function CoursePage() {
 
   const getTranslatedTitle = (title: string, prefix = 'course') => {
     if (!title) return ""
-    const key = `${prefix}.${title}_title`
-    const translated = t(key)
-    return translated === key ? title : translated
+    const exactKey = `${prefix}.${title}_title`
+    const exactTranslated = t(exactKey)
+    if (exactTranslated !== exactKey) return exactTranslated
+
+    if (language === 'en') {
+      const titleDict: Record<string, string> = {
+        "Bài thuyết trình tốt và bài thuyết trình tệ": "Good vs Bad Presentation",
+        "Cách bắt đầu một bài diễn thuyết": "How to start a speech",
+        "Đào tạo kỹ năng thuyết trình": "Presentation skills training - Gain competitive advantage",
+        "Tự tay xây dựng ứng dụng To-Do List": "Build a simple To-Do List app",
+        "Xây dựng trò chơi đoán số": "Build a number guessing game in Python",
+        "Tạo ứng dụng đặt cà phê": "Create a coffee ordering app in 2 mins with Python",
+        "Tiếp thị là gì trong 3 phút": "What is marketing in 3 minutes",
+        "Làm thế nào Apple và Nike": "How Apple and Nike have branded your brain",
+        "Neuromarketing:": "Neuromarketing: The new science of consumer decisions"
+      }
+      for (const [k, v] of Object.entries(titleDict)) {
+        if (title.includes(k) || k.includes(title)) return v
+      }
+    }
+    return title
   }
 
   const getTranslatedLine = (line: string) => {
     if (language === 'en') {
       const dict: Record<string, string> = {
         "Steve Jobs": "In this video, Steve Jobs shares the unique management philosophy at Apple, where the company is run like the 'world's largest startup'. Here are the key points:",
-        "Cấu trúc phẳng": "Flat structure and collaboration: Apple doesn't have committees. Instead, individuals are responsible for specific areas (iPhone software, Mac hardware, marketing, etc.), fostering teamwork and synergy.",
+        "Cấu trúc phẳng": "Flat structure and collaboration: Apple doesn't have committees. Instead, individuals are responsible for specific areas, fostering teamwork and synergy.",
         "Niềm tin trong quản lý": "Trust in management: The key to success is trusting teams to do their part without strict oversight.",
-        "Văn hóa tranh luận": "Culture of debate: Jobs encouraged employees to challenge him if he was wrong, emphasizing that the company should be run by the best ideas rather than rigid hierarchy.",
+        "Văn hóa tranh luận": "Culture of debate: Jobs encouraged employees to challenge him if he was wrong, emphasizing that the company should be run by the best ideas.",
         "Kiểm soát chất lượng": "Quality control: Each product must meet extremely high standards before reaching users.",
-        "Tổng quan về quản trị.": "Overview of management.",
-        "Tầm quan trọng của quản trị doanh nghiệp.": "The importance of business administration.",
-        "Các kỹ năng cần thiết của nhà quản lý.": "Essential skills of a manager.",
-        "Các bước ra quyết định.": "Decision-making steps.",
-        "Phân tích rủi ro.": "Risk analysis.",
-        "Case study thực tế.": "Real-world case study.",
-        "Cách xây dựng team.": "How to build a team.",
-        "Động viên nhân viên.": "Motivating employees.",
-        "Giải quyết xung đột nội bộ.": "Resolving internal conflicts.",
-        "Lắng nghe chủ động là gì?": "What is active listening?",
-        "Các rào cản khi lắng nghe.": "Barriers to listening.",
-        "Kỹ thuật phản hồi.": "Feedback techniques.",
-        "Chuẩn bị bài thuyết trình.": "Preparing a presentation.",
-        "Cấu trúc 3 phần.": "The 3-part structure.",
-        "Ngôn ngữ cơ thể.": "Body language.",
-        "Nhận diện xung đột.": "Identifying conflicts.",
-        "Các phương pháp xử lý.": "Handling methods.",
-        "Đưa feedback xây dựng.": "Providing constructive feedback.",
-        "Tư duy thuật toán.": "Algorithmic thinking.",
-        "Cài đặt Python.": "Installing Python.",
-        "Hello World.": "Hello World.",
-        "Các kiểu dữ liệu cơ bản.": "Basic data types.",
-        "Toán tử.": "Operators.",
-        "Vòng lặp for và while.": "For and while loops.",
-        "Định nghĩa hàm.": "Function definition.",
-        "Tham số và giá trị trả về.": "Parameters and return values.",
-        "Sử dụng thư viện.": "Using libraries.",
-        "Chân dung khách hàng.": "Customer persona.",
-        "Hành trình khách hàng.": "Customer journey.",
-        "Phân khúc thị trường.": "Market segmentation.",
-        "Thế nào là content tốt?": "What makes good content?",
-        "Storytelling.": "Storytelling.",
-        "Các định dạng content phổ biến.": "Popular content formats.",
-        "Các chỉ số quan trọng (KPIs).": "Key Performance Indicators (KPIs).",
-        "Công cụ đo lường.": "Measurement tools.",
-        "A/B Testing.": "A/B Testing."
+        
+        "Trong video này, người diễn giả phân tích sự khác biệt": "In this video, the speaker analyzes the difference between a good presentation and a bad one.",
+        "Họ chỉ ra rằng một người thuyết trình xuất sắc": "They point out that an excellent presenter doesn't just convey information, but knows how to connect emotionally and engage the audience.",
+        "Video đưa ra các ví dụ cụ thể về ngôn ngữ cơ thể": "The video provides specific examples of body language, tone, and pacing to create a strong impact.",
+        "Thông điệp chính:": "Key takeaway: Presenting is not just talking, it's telling a compelling story.",
+        
+        "Tầm quan trọng của \"Hook\"": "The importance of the 'Hook': To make a presentation interesting, you need to grab the audience's attention right from the start.",
+        "Sai lầm phổ biến": "Common mistake: Most people start by listing the content ('what') instead of focusing on the benefits ('why').",
+        "Câu chuyện về iPad": "The iPad story: Jason shares a story about a man who bought an iPad not because of its features, but because he believed it would change his life.",
+        "Bài tập thực hành": "Practical exercise: Before presenting, list the topics you will teach and mark their value to the audience.",
+        
+        "Đây là một video hướng dẫn dành cho người mới học Python, tập trung vào việc xây dựng ứng dụng To-Do List": "This is a tutorial video for Python beginners, focusing on building a To-Do List app.",
+        "tập trung vào việc xây dựng trò chơi đoán số": "focusing on building a Number Guessing Game.",
+        "Người hướng dẫn giới thiệu cách viết code Python cơ bản để quản lý": "The instructor introduces basic Python code to manage a task list.",
+        "Người hướng dẫn giải thích cách viết code Python cơ bản để:": "The instructor explains basic Python code to:",
+        "Sinh ra một số ngẫu nhiên": "Generate a random number.",
+        "Cho người chơi nhập dự đoán": "Allow the player to input their guess.",
+        "So sánh kết quả và đưa ra phản hồi": "Compare the result and provide feedback (higher/lower/correct).",
+        "Đây là một dự án nhỏ nhưng hữu ích để rèn luyện kỹ năng": "This is a small but useful project to practice programming skills, and can be expanded with features like attempt limits or UI.",
+        "Video thuộc series \"Projects Explained\"": "Part of the 'Projects Explained' series, aiming to help viewers learn Python through practical projects rather than theory alone.",
+        "Nội dung bao gồm việc tạo, lưu, và hiển thị": "Content includes creating, saving, and displaying task lists, while encouraging viewers to add features like MySQL or a GUI.",
+        "Các bình luận cho thấy người xem đánh giá cao": "Viewer comments show high appreciation for the easy-to-understand tutorial.",
+        "hướng dẫn cách tạo ứng dụng đặt cà phê": "tutorial showing how to build a Coffee Ordering App in 2 minutes.",
+        "Video sử dụng Object-Oriented Programming": "The video uses Object-Oriented Programming (OOP) and a Command-Line Interface (CLI).",
+        "Người xem sẽ học cách dùng class": "Viewers will learn how to use classes, methods, and interactive menus to create a realistic mini-project.",
+        "Nội dung phù hợp cho những ai muốn học Python qua dự án": "Content is suitable for those who want to learn Python through practical projects.",
+        "Phản hồi từ người xem cho thấy video dễ hiểu": "Viewer feedback shows the video is easy to understand and inspiring.",
+        
+        "Video giải thích khái niệm marketing cơ bản": "The video explains basic marketing concepts in 3 minutes for beginners.",
+        "Người hướng dẫn nhấn mạnh rằng marketing không chỉ là quảng cáo": "The instructor emphasizes that marketing is not just advertising, but includes demand creation and branding.",
+        "Một số khái niệm quan trọng được đề cập": "Some important concepts mentioned:",
+        "SEO (tối ưu hóa công cụ tìm kiếm)": "SEO (Search Engine Optimization) is a crucial factor in digital marketing.",
+        "Phân tích SWOT": "SWOT analysis helps comprehensively evaluate marketing strategies.",
+        "Marketing truyền thống và marketing hiện đại có sự khác biệt": "There are differences between traditional and modern marketing, with the latter focusing more on consumer behavior.",
+        "Video được đánh giá là ngắn gọn, dễ hiểu": "The video is highly rated as concise, easy to understand, and a good starting point.",
+        
+        "Thương hiệu và Bản sắc": "Brands and Identity: Experts explain that consumers buy products to express their personal identity. Choosing Nike or Apple means aligning with their values.",
+        "Phản ứng thần kinh": "Neurological response: MRI scans show Apple users have empathetic responses to the brand, akin to family. Samsung users have 'adversarial' responses to bad news about Apple.",
+        "Tại sao chúng ta bị ảnh hưởng": "Why we are influenced: Brands act as 'pillars of identity'. Choices are driven by deep psychological needs for belonging.",
+        
+        "Video khám phá cách thức bộ não con người đưa ra quyết định mua hàng": "The video explores how the human brain makes purchasing decisions, mostly unconsciously and driven by emotion.",
+        "Vai trò của cảm xúc": "The role of emotion: 95% of decisions are unconscious. The New Coke failure showed the danger of ignoring emotional connections.",
+        "Ứng dụng Neuromarketing": "Applying Neuromarketing: It helps businesses understand subtle factors affecting behavior, like Google testing shades of blue to increase clicks.",
+        "Ảnh hưởng vô hình": "Invisible influence: People are influenced by 'social proof'. Amazon uses customer ratings to build trust.",
+        "Những thay đổi nhỏ tạo tác động lớn": "Small changes, big impact: Small nudges (like an emoji on an energy bill) can surprisingly alter human behavior.",
+        "Thông điệp cốt lõi": "Core message: By understanding how the brain works, we can find 'game changers' to create better experiences."
       }
       
       const trimmedLine = line.trim()
-      // Use includes for flexible matching on dynamic admin-entered content
-      if (trimmedLine.includes("Steve Jobs") || trimmedLine.includes("Trong video này")) return dict["Steve Jobs"]
-      if (trimmedLine.includes("Cấu trúc phẳng")) return dict["Cấu trúc phẳng"]
-      if (trimmedLine.includes("Kiểm soát chất lượng")) return dict["Kiểm soát chất lượng"]
-      if (trimmedLine.includes("Niềm tin trong quản lý")) return dict["Niềm tin trong quản lý"]
-      if (trimmedLine.includes("Văn hóa tranh luận")) return dict["Văn hóa tranh luận"]
-      
-      return dict[trimmedLine] || line
+      for (const [key, value] of Object.entries(dict)) {
+        if (trimmedLine.includes(key)) {
+          return value
+        }
+      }
+      return line
     }
+    
     const key = `lesson.${line.trim()}`
     const translated = t(key)
     return translated === key ? line : translated

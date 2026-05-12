@@ -1,11 +1,18 @@
 import { PrismaClient } from '@prisma/client'
+
 const prisma = new PrismaClient()
 
 async function main() {
   const courses = await prisma.course.findMany({
-    select: { field: true, slug: true }
+    include: { lessons: true }
   })
-  console.log(JSON.stringify(courses, null, 2))
+  
+  for (const c of courses) {
+    for (const l of c.lessons) {
+      console.log(`\n--- LESSON: ${l.title} ---`)
+      console.log(l.transcript)
+    }
+  }
 }
 
-main().finally(() => prisma.$disconnect())
+main().catch(console.error).finally(() => prisma.$disconnect())
