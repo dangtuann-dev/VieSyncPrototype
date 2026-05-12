@@ -270,13 +270,13 @@ export default function CoursePage() {
                              session.isActive ? 'bg-rose-500 text-white animate-pulse' : 
                              isUpcoming ? 'bg-blue-100 text-blue-600' : 'bg-slate-200 text-slate-500'
                            }`}>
-                             {session.isActive ? 'LIVE NOW' : isUpcoming ? 'Sắp diễn ra' : 'Đã kết thúc'}
+                             {session.isActive ? 'LIVE NOW' : isUpcoming ? t('live.upcoming') : t('live.ended')}
                            </span>
                            <span className="text-[10px] font-bold text-slate-400">
                              {new Date(session.scheduledAt).toLocaleDateString(language === 'vi' ? 'vi-VN' : 'en-US')}
                            </span>
                         </div>
-                        <h4 className={`text-xs font-black mb-3 ${session.isActive ? 'text-rose-900' : 'text-slate-800'}`}>{session.title}</h4>
+                        <h4 className={`text-xs font-black mb-3 ${session.isActive ? 'text-rose-900' : 'text-slate-800'}`}>{getTranslatedTitle(session.title, 'live')}</h4>
                         {session.isActive ? (
                           <a
                             href={`https://meet.jit.si/${session.jitsiRoomId}`}
@@ -284,7 +284,7 @@ export default function CoursePage() {
                             rel="noopener noreferrer"
                             className="flex items-center justify-center gap-2 w-full py-2 bg-rose-600 text-white rounded-xl text-[10px] font-black hover:bg-rose-700 transition-all shadow-lg shadow-rose-100"
                           >
-                            <i className="fa-solid fa-video"></i> THAM GIA NGAY
+                            <i className="fa-solid fa-video"></i> {t('live.join_now')}
                           </a>
                         ) : isUpcoming ? (
                           <div className="flex items-center gap-2 text-[10px] font-bold text-blue-600 bg-blue-50 p-2 rounded-xl border border-blue-100">
@@ -293,7 +293,7 @@ export default function CoursePage() {
                           </div>
                         ) : (
                           <div className="text-[10px] font-bold text-slate-400 italic">
-                            Buổi học đã được ghi hình (liên hệ GV)
+                            {t('live.recorded')}
                           </div>
                         )}
                       </div>
@@ -302,7 +302,7 @@ export default function CoursePage() {
                 ) : (
                   <div className="py-12 text-center">
                     <i className="fa-solid fa-calendar-xmark text-slate-200 text-3xl mb-4"></i>
-                    <p className="text-xs font-bold text-slate-400 italic">Chưa có lịch Live cho khóa học này</p>
+                    <p className="text-xs font-bold text-slate-400 italic">{t('live.no_schedule')}</p>
                   </div>
                 )}
               </div>

@@ -269,6 +269,12 @@ const translations: Record<Language, Record<string, string>> = {
     "live.desc": "Tham gia các buổi học trực tuyến cùng giảng viên để giải đáp thắc mắc và đào sâu kiến thức.",
     "live.not_started": "Chưa bắt đầu",
     "live.room": "Phòng học trực tuyến",
+    "live.upcoming": "Sắp diễn ra",
+    "live.ended": "Đã kết thúc",
+    "live.join_now": "THAM GIA NGAY",
+    "live.recorded": "Buổi học đã được ghi hình (liên hệ GV)",
+    "live.no_schedule": "Chưa có lịch Live cho khóa học này",
+    "live.Q&A CÁC CÂU HỎI THẮC MẮC_title": "Q&A CÁC CÂU HỎI THẮC MẮC",
 
     // Dynamic Data (Demo)
     "course.Nhập Môn Quản Trị Doanh Nghiệp Hiện Đại_title": "Nhập Môn Quản Trị Doanh Nghiệp Hiện Đại",
@@ -549,6 +555,12 @@ const translations: Record<Language, Record<string, string>> = {
     "live.desc": "Join online sessions with instructors to get answers and deepen your knowledge.",
     "live.not_started": "Not Started",
     "live.room": "Online Classroom",
+    "live.upcoming": "Upcoming",
+    "live.ended": "Ended",
+    "live.join_now": "JOIN NOW",
+    "live.recorded": "Session recorded (contact instructor)",
+    "live.no_schedule": "No live schedule for this course yet",
+    "live.Q&A CÁC CÂU HỎI THẮC MẮC_title": "Q&A & Troubleshooting",
 
     // Dynamic Data (Demo)
     "course.Nhập Môn Quản Trị Doanh Nghiệp Hiện Đại_title": "Modern Business Management Introduction",
