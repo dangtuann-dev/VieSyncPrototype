@@ -30,8 +30,8 @@ export default function DashboardPage() {
     fetchDashboard()
   }, [])
 
-  const getTranslatedTitle = (title: string, field: string) => {
-    const key = `course.${field}_title`
+  const getTranslatedTitle = (title: string) => {
+    const key = `course.${title}_title`
     const translated = t(key)
     return translated === key ? title : translated
   }
@@ -81,7 +81,7 @@ export default function DashboardPage() {
                 <div className="w-16 h-16 rounded-xl bg-slate-50 flex items-center justify-center text-3xl">📚</div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-display font-bold text-slate-900 mb-1 truncate">
-                    {getTranslatedTitle(p.course.title, p.course.field)}
+                    {getTranslatedTitle(p.course.title)}
                   </h3>
                   <div className="flex items-center gap-4 text-[11px] font-bold text-slate-400 mb-3">
                     <span className="flex items-center gap-1.5"><i className="fa-solid fa-play-circle text-blue-500"></i> {p.course.lessons?.length || 0} {t('common.lessons')}</span>

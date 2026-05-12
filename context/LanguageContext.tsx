@@ -272,6 +272,9 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Dynamic Data (Demo)
     "course.Nhập Môn Quản Trị Doanh Nghiệp Hiện Đại_title": "Nhập Môn Quản Trị Doanh Nghiệp Hiện Đại",
+    "course.Kỹ Năng Giao Tiếp & Thuyết Trình Chuyên Nghiệp_title": "Kỹ Năng Giao Tiếp & Thuyết Trình Chuyên Nghiệp",
+    "course.Python Cơ Bản — Từ Số Không Đến Có Thể Code_title": "Python Cơ Bản — Từ Số Không Đến Có Thể Code",
+    "course.Digital Marketing Từ A-Z Cho Người Mới_title": "Digital Marketing Từ A-Z Cho Người Mới",
     "lesson.Triết lý quản lý con người theo Steve Jobs_title": "Triết lý quản lý con người theo Steve Jobs",
     "lesson.Cách quản lý căng thẳng được chia sẻ bởi Barack Obama_title": "Cách quản lý căng thẳng được chia sẻ bởi Barack Obama",
     "lesson.Cải thiện kỹ năng nói_title": "Cải thiện kỹ năng nói",
@@ -537,6 +540,9 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Dynamic Data (Demo)
     "course.Nhập Môn Quản Trị Doanh Nghiệp Hiện Đại_title": "Modern Business Management Introduction",
+    "course.Kỹ Năng Giao Tiếp & Thuyết Trình Chuyên Nghiệp_title": "Professional Communication & Presentation Skills",
+    "course.Python Cơ Bản — Từ Số Không Đến Có Thể Code_title": "Basic Python — From Zero to Code",
+    "course.Digital Marketing Từ A-Z Cho Người Mới_title": "Digital Marketing A-Z for Beginners",
     "lesson.Triết lý quản lý con người theo Steve Jobs_title": "Steve Jobs' Human Management Philosophy",
     "lesson.Cách quản lý căng thẳng được chia sẻ bởi Barack Obama_title": "Stress Management by Barack Obama",
     "lesson.Cải thiện kỹ năng nói_title": "Improving Public Speaking Skills",

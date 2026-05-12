@@ -14,14 +14,14 @@ export function CourseCard({ course, compact = false }: { course: any; compact?:
   const { t } = useLanguage()
   const colorClass = fieldColor[course.field] || "bg-slate-500"
 
-  const getTranslatedTitle = (title: string, field: string) => {
-    const key = `course.${field}_title`
+  const getTranslatedTitle = (title: string) => {
+    const key = `course.${title}_title`
     const translated = t(key)
     return translated === key ? title : translated
   }
 
-  const getTranslatedDesc = (desc: string, field: string) => {
-    const key = `course.${field}_desc`
+  const getTranslatedDesc = (desc: string) => {
+    const key = `course.${desc.substring(0, 20)}_desc`
     const translated = t(key)
     return translated === key ? desc : translated
   }
@@ -36,7 +36,7 @@ export function CourseCard({ course, compact = false }: { course: any; compact?:
         </div>
         <div className="min-w-0">
           <h4 className="font-bold text-xs text-slate-900 truncate group-hover:text-blue-600 transition-colors">
-            {getTranslatedTitle(course.title, course.field)}
+            {getTranslatedTitle(course.title)}
           </h4>
           <p className="text-[10px] font-medium text-slate-400 mt-0.5">
              <i className="fa-solid fa-list-ul mr-1"></i> {lessonCount} {t('common.lessons')}
@@ -56,11 +56,11 @@ export function CourseCard({ course, compact = false }: { course: any; compact?:
         </span>
 
         <h3 className="font-display font-bold text-slate-900 text-base mt-3 mb-2 leading-snug group-hover:text-blue-700 transition-colors">
-          {getTranslatedTitle(course.title, course.field)}
+          {getTranslatedTitle(course.title)}
         </h3>
 
         <p className="text-xs text-slate-500 mb-4 line-clamp-2 leading-relaxed">
-          {getTranslatedDesc(course.description, course.field)}
+          {getTranslatedDesc(course.description)}
         </p>
 
         <div className="flex items-center gap-4 text-[10px] font-bold text-slate-400 border-t border-[#F1F5FD] pt-4 uppercase">

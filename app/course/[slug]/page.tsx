@@ -83,10 +83,55 @@ export default function CoursePage() {
 
   const getTranslatedLine = (line: string) => {
     if (language === 'en') {
-      // Mock translations for demo purposes
-      if (line.includes("Steve Jobs chia sẻ triết lý")) return "Steve Jobs shares the unique management philosophy at Apple, where the company is run like the 'world's largest startup'."
-      if (line.includes("Cấu trúc phẳng")) return "Flat structure and collaboration: Apple doesn't have committees. Instead, individuals are responsible for specific areas (iPhone software, Mac hardware, marketing, etc.), fostering teamwork and synergy."
-      if (line.includes("Kiểm soát chất lượng")) return "Quality control: Each product must meet extremely high standards before reaching users."
+      const dict: Record<string, string> = {
+        "Steve Jobs chia sẻ triết lý": "Steve Jobs shares the unique management philosophy at Apple, where the company is run like the 'world's largest startup'.",
+        "Cấu trúc phẳng": "Flat structure and collaboration: Apple doesn't have committees. Instead, individuals are responsible for specific areas (iPhone software, Mac hardware, marketing, etc.), fostering teamwork and synergy.",
+        "Kiểm soát chất lượng": "Quality control: Each product must meet extremely high standards before reaching users.",
+        "Tổng quan về quản trị.": "Overview of management.",
+        "Tầm quan trọng của quản trị doanh nghiệp.": "The importance of business administration.",
+        "Các kỹ năng cần thiết của nhà quản lý.": "Essential skills of a manager.",
+        "Các bước ra quyết định.": "Decision-making steps.",
+        "Phân tích rủi ro.": "Risk analysis.",
+        "Case study thực tế.": "Real-world case study.",
+        "Cách xây dựng team.": "How to build a team.",
+        "Động viên nhân viên.": "Motivating employees.",
+        "Giải quyết xung đột nội bộ.": "Resolving internal conflicts.",
+        "Lắng nghe chủ động là gì?": "What is active listening?",
+        "Các rào cản khi lắng nghe.": "Barriers to listening.",
+        "Kỹ thuật phản hồi.": "Feedback techniques.",
+        "Chuẩn bị bài thuyết trình.": "Preparing a presentation.",
+        "Cấu trúc 3 phần.": "The 3-part structure.",
+        "Ngôn ngữ cơ thể.": "Body language.",
+        "Nhận diện xung đột.": "Identifying conflicts.",
+        "Các phương pháp xử lý.": "Handling methods.",
+        "Đưa feedback xây dựng.": "Providing constructive feedback.",
+        "Tư duy thuật toán.": "Algorithmic thinking.",
+        "Cài đặt Python.": "Installing Python.",
+        "Hello World.": "Hello World.",
+        "Các kiểu dữ liệu cơ bản.": "Basic data types.",
+        "Toán tử.": "Operators.",
+        "Vòng lặp for và while.": "For and while loops.",
+        "Định nghĩa hàm.": "Function definition.",
+        "Tham số và giá trị trả về.": "Parameters and return values.",
+        "Sử dụng thư viện.": "Using libraries.",
+        "Chân dung khách hàng.": "Customer persona.",
+        "Hành trình khách hàng.": "Customer journey.",
+        "Phân khúc thị trường.": "Market segmentation.",
+        "Thế nào là content tốt?": "What makes good content?",
+        "Storytelling.": "Storytelling.",
+        "Các định dạng content phổ biến.": "Popular content formats.",
+        "Các chỉ số quan trọng (KPIs).": "Key Performance Indicators (KPIs).",
+        "Công cụ đo lường.": "Measurement tools.",
+        "A/B Testing.": "A/B Testing."
+      }
+      
+      const trimmedLine = line.trim()
+      // Prefix matching for the custom Steve Jobs summary
+      if (trimmedLine.startsWith("Steve Jobs chia sẻ triết lý")) return dict["Steve Jobs chia sẻ triết lý"]
+      if (trimmedLine.startsWith("Cấu trúc phẳng")) return dict["Cấu trúc phẳng"]
+      if (trimmedLine.startsWith("Kiểm soát chất lượng")) return dict["Kiểm soát chất lượng"]
+      
+      return dict[trimmedLine] || line
     }
     const key = `lesson.${line.trim()}`
     const translated = t(key)
